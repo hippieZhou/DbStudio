@@ -5,8 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DbStudio.WpfApp
 {
-    public partial class App : System.Windows.Application
+    public partial class App
     {
+        /// <summary>
+        /// WpfAnalyzers
+        /// </summary>
         public App()
         {
             Ioc.Default.ConfigureServices(
