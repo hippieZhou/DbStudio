@@ -14,11 +14,14 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="Mappings\" />
+    <Folder Include="Features\DbCatalog\Commands\" />
+    <Folder Include="Features\DataBase\" />
+    <Folder Include="Features\Snapshot\" />
     <Folder Include="Parameters\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DbStudio.Domain\DbStudio.Domain.csproj" />
     <ProjectReference Include="..\DbStudio.Infrastructure\DbStudio.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using DbStudio.Application.Mappings;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ namespace DbStudio.Application.Extensions
         public static IServiceCollection AddMapster(this IServiceCollection services, Assembly assembly)
         {
             services.AddSingleton(TypeAdapterConfig.GlobalSettings);
-            services.AddScoped<IMapper, ServiceMapper>();
+            services.AddScoped<IMapper, Mapper>(sp => new Mapper(new MapsterProfile()));
             return services;
         }
     }

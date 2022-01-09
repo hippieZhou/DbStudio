@@ -26,8 +26,6 @@ namespace DbStudio.Infrastructure.Uow
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted,
             CancellationToken cancellationToken = default);
 
-        ILiteDbUnitOfWork Create(
-            [NotNull] string connectionString,
-            RetryOptions options = default);
+        ILiteDbUnitOfWork CreateLite(RetryOptions options = default);
     }
 }

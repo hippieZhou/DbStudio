@@ -9,6 +9,13 @@ namespace DbStudio.Infrastructure.Uow.Impl
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
+        private readonly string _liteDb;
+
+        public UnitOfWorkFactory(string liteDb)
+        {
+            _liteDb = liteDb;
+        }
+
         public string BuildConnectionString(
             [NotNull] string dataSource,
             [NotNull] string userId,
@@ -49,11 +56,9 @@ namespace DbStudio.Infrastructure.Uow.Impl
             return new DapperUnitOfWork(conn, options, transactional, isolationLevel);
         }
 
-        public ILiteDbUnitOfWork Create(
-            string connectionString,
-            RetryOptions options = default)
+        public ILiteDbUnitOfWork CreateLite(RetryOptions options = default)
         {
-            var dbContext = new LiteDatabase(connectionString);
+            var dbContext = new LiteDatabase(_liteDb);
             return new LiteDbUnitOfWork(dbContext, options);
         }
     }

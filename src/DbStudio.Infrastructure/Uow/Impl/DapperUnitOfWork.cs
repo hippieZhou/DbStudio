@@ -4,6 +4,7 @@ using System.Threading;
 using Dapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DbStudio.Infrastructure.Uow.Impl
 {
@@ -28,7 +29,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
             }
         }
 
-        private CommandDefinition CreateCommandDefinition(ICommand command, CancellationToken cancellationToken)
+        private CommandDefinition CreateCommandDefinition(DbCommandArgs command, CancellationToken cancellationToken)
         {
             var commandDefinition = new CommandDefinition(
                 commandText: command.Sql,
@@ -42,21 +43,22 @@ namespace DbStudio.Infrastructure.Uow.Impl
 
 
 
-        public Task<IEnumerable<T>> QueryAsync<T>(ICommand command, CancellationToken cancellationToken = default)
+        public Task<IEnumerable<T>> QueryAsync<T>(DbCommandArgs command,
+            CancellationToken cancellationToken = default)
         {
             return Retry.Invoke(() => _connection.QueryAsync<T>(
                     CreateCommandDefinition(command, cancellationToken)),
                 _options);
         }
 
-        public Task<T> QueryFirstOrDefault<T>(ICommand command, CancellationToken cancellationToken = default)
+        public Task<T> QueryFirstOrDefault<T>(DbCommandArgs command, CancellationToken cancellationToken = default)
         {
             return Retry.Invoke(() => _connection.QueryFirstOrDefaultAsync<T>(
                     CreateCommandDefinition(command, cancellationToken)),
                 _options);
         }
 
-        public Task<int> ExecuteAsync(ICommand command, CancellationToken cancellationToken = default)
+        public Task<int> ExecuteAsync(DbCommandArgs command, CancellationToken cancellationToken = default)
         {
             if (command.RequiresTransaction && _transaction == null)
             {
