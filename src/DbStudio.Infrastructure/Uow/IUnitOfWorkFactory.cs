@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,14 +7,20 @@ namespace DbStudio.Infrastructure.Uow
 {
     public interface IUnitOfWorkFactory
     {
+        string BuildConnectionString(
+            [NotNull] string dataSource,
+            [NotNull] string userId,
+            [NotNull] string password,
+            [NotNull] string initialCatalog = "master");
+
         IDapperUnitOfWork Create(
-            [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
+            [NotNull] string connectionString,
             bool transactional = false,
             RetryOptions options = default,
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
 
         Task<IDapperUnitOfWork> CreateAsync(
-            [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
+            [NotNull] string connectionString,
             bool transactional = false,
             RetryOptions options = default,
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted,

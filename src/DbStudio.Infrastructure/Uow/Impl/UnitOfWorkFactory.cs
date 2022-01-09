@@ -9,25 +9,42 @@ namespace DbStudio.Infrastructure.Uow.Impl
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
+        public string BuildConnectionString(
+            [NotNull] string dataSource,
+            [NotNull] string userId,
+            [NotNull] string password,
+            [NotNull] string initialCatalog = "master")
+        {
+            return new SqlConnectionStringBuilder
+            {
+                DataSource = dataSource,
+                UserID = userId,
+                Password = password,
+                InitialCatalog = initialCatalog,
+                PersistSecurityInfo = true,
+                MultipleActiveResultSets = true
+            }.ToString();
+        }
+
         public IDapperUnitOfWork Create(
-            [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
-            bool transactional = false, 
-            RetryOptions options = default, 
+            [NotNull] string connectionString,
+            bool transactional = false,
+            RetryOptions options = default,
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
-            var conn = new SqlConnection(connectionStringBuilder.ToString());
+            var conn = new SqlConnection(connectionString);
             conn.Open();
             return new DapperUnitOfWork(conn, options, transactional, isolationLevel);
         }
 
         public async Task<IDapperUnitOfWork> CreateAsync(
-            [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
+            [NotNull] string connectionString,
             bool transactional = false,
             RetryOptions options = default,
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted,
             CancellationToken cancellationToken = default)
         {
-            var conn = new SqlConnection(connectionStringBuilder.ToString());
+            var conn = new SqlConnection(connectionString);
             await conn.OpenAsync(cancellationToken);
             return new DapperUnitOfWork(conn, options, transactional, isolationLevel);
         }

@@ -14,9 +14,12 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="Features\" />
     <Folder Include="Mappings\" />
     <Folder Include="Parameters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbStudio.Infrastructure\DbStudio.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

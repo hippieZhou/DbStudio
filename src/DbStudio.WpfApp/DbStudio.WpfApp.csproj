@@ -8,12 +8,19 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="HandyControl" Version="3.3.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DbStudio.Application\DbStudio.Application.csproj" />
     <ProjectReference Include="..\DbStudio.Infrastructure\DbStudio.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Impl\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>
