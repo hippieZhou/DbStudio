@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using DbStudio.Application.Features;
-using DbStudio.Application.Features.DbConnection;
 using DbStudio.Application.Features.DbConnection.Commands;
-using DbStudio.Application.Features.DbConnection.Queries;
 
 namespace DbStudio.WpfApp.ViewModels
 {

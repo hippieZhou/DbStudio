@@ -10,7 +10,7 @@ namespace DbStudio.WpfApp.Extensions
         public static IServiceCollection AddMvvmLayer(this IServiceCollection service)
         {
             service.AddSingleton<IDialogService, DialogService>();
-            service.AddSingleton<IEventBus, EventBus>();
+            service.AddSingleton<IEventBus, InMemoryBus>();
             return service;
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DbStudio.Application.Exceptions;
 using DbStudio.Application.Interfaces;
@@ -8,17 +10,31 @@ using MediatR;
 
 namespace DbStudio.WpfApp
 {
-    public class EventBus : IEventBus
+    public class InMemoryBus : IEventBus
     {
         private readonly IMediator _mediator;
 
-        public EventBus(IMediator mediator)
+        public InMemoryBus(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         public async Task<Response<T>> SendAsync<T>(IRequest<Response<T>> request)
         {
+#if DEBUG
+            var payload = JsonSerializer.Serialize(
+                new
+                {
+                    Now = DateTime.Now.ToString("yyyy-MM-dd HH:ff:ss"),
+                    Body = request
+                }, new JsonSerializerOptions
+                {
+                    AllowTrailingCommas = true,
+                    IncludeFields = true,
+                    WriteIndented = true
+                });
+            Trace.WriteLine(payload);
+#endif
             try
             {
                 return await _mediator.Send(request);
