@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="Features\DataBase\Queries\" />
     <Folder Include="Features\DbCatalog\Commands\" />
     <Folder Include="Features\Snapshot\" />
     <Folder Include="Parameters\" />
@@ -22,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DbStudio.Domain\DbStudio.Domain.csproj" />
+    <ProjectReference Include="..\DbStudio.Infrastructure.Shared\DbStudio.Infrastructure.Shared.csproj" />
     <ProjectReference Include="..\DbStudio.Infrastructure\DbStudio.Infrastructure.csproj" />
   </ItemGroup>
 
