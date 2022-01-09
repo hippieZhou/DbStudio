@@ -14,8 +14,8 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
+    <Folder Include="Features\DataBase\Queries\" />
     <Folder Include="Features\DbCatalog\Commands\" />
-    <Folder Include="Features\DataBase\" />
     <Folder Include="Features\Snapshot\" />
     <Folder Include="Parameters\" />
   </ItemGroup>
