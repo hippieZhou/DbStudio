@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DbStudio.Infrastructure.Uow
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IDapperUnitOfWork : IDisposable
     {
         Task<IEnumerable<T>> QueryAsync<T>(ICommand command, CancellationToken cancellationToken = default);
         Task<T> QueryFirstOrDefault<T>(ICommand command, CancellationToken cancellationToken = default);

@@ -3,12 +3,13 @@ using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using LiteDB;
 
 namespace DbStudio.Infrastructure.Uow.Impl
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
-        public IUnitOfWork Create(
+        public IDapperUnitOfWork Create(
             [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
             bool transactional = false, 
             RetryOptions options = default, 
@@ -16,10 +17,10 @@ namespace DbStudio.Infrastructure.Uow.Impl
         {
             var conn = new SqlConnection(connectionStringBuilder.ToString());
             conn.Open();
-            return new UnitOfWork(conn, options, transactional, isolationLevel);
+            return new DapperUnitOfWork(conn, options, transactional, isolationLevel);
         }
 
-        public async Task<IUnitOfWork> CreateAsync(
+        public async Task<IDapperUnitOfWork> CreateAsync(
             [NotNull] SqlConnectionStringBuilder connectionStringBuilder,
             bool transactional = false,
             RetryOptions options = default,
@@ -28,7 +29,15 @@ namespace DbStudio.Infrastructure.Uow.Impl
         {
             var conn = new SqlConnection(connectionStringBuilder.ToString());
             await conn.OpenAsync(cancellationToken);
-            return new UnitOfWork(conn, options, transactional, isolationLevel);
+            return new DapperUnitOfWork(conn, options, transactional, isolationLevel);
+        }
+
+        public ILiteDbUnitOfWork Create(
+            string connectionString,
+            RetryOptions options = default)
+        {
+            var dbContext = new LiteDatabase(connectionString);
+            return new LiteDbUnitOfWork(dbContext, options);
         }
     }
 }

@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace DbStudio.Infrastructure.Uow.Impl
 {
-    public class UnitOfWork : IUnitOfWork
+    public class DapperUnitOfWork : IDapperUnitOfWork
     {
         private bool _disposed;
         private IDbConnection _connection;
         private IDbTransaction _transaction;
         private readonly RetryOptions _options;
 
-        internal UnitOfWork(
+        internal DapperUnitOfWork(
             IDbConnection connection,
             RetryOptions options = default,
             bool transactional = false,
@@ -80,7 +80,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
             GC.SuppressFinalize(this);
         }
 
-        ~UnitOfWork()
+        ~DapperUnitOfWork()
             => Dispose(false);
 
         protected virtual void Dispose(bool disposing)
