@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DbStudio.Application.Extensions
 {
-    public static class MapsterExtension
+    public static class MapsterExtensions
     {
         /// <summary>
         /// https://github.com/MapsterMapper/Mapster/wiki/Dependency-Injection

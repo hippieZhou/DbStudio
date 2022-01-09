@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using DbStudio.Application.Behaviours;
 using DbStudio.Application.Extensions;
 using FluentValidation;
 using MediatR;
@@ -14,7 +15,7 @@ namespace DbStudio.Application
             services.AddMapster(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }
