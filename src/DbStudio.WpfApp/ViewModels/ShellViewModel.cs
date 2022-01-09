@@ -9,6 +9,7 @@ namespace DbStudio.WpfApp.ViewModels
         {
             
         }
+
         private IAsyncRelayCommand _loadedCommand;
         public IAsyncRelayCommand LoadedCommand
         {
@@ -18,8 +19,14 @@ namespace DbStudio.WpfApp.ViewModels
                 {
                     var response = await Mediator.SendAsync(new DbConnectionTestCommand
                     {
-
+                        DataSource = "10.5.10.218",
+                         UserId = "sa",
+                         Password = "95938"
                     });
+                    if (response != null)
+                    {
+                        Message.Success("连接成功");
+                    }
                 });
             }
         }
