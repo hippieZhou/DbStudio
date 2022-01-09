@@ -6,7 +6,7 @@ using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
 
-namespace DbStudio.Application.Features.DbConnection.Queries
+namespace DbStudio.Application.Features.DbConnection.Commands
 {
     public class DbConnectionTestCommand : IRequest<Response<int>>
     {
