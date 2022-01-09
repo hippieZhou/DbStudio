@@ -21,18 +21,12 @@ namespace DbStudio.WpfApp
         {
             try
             {
-                var response = await _mediator.Send(request);
-                return response;
+                return await _mediator.Send(request);
             }
-            catch (ValidationException ex)
+            catch (Exception e)
             {
-                var message = string.Join(Environment.NewLine, ex.Errors);
-                MessageBox.Error(message,"系统提示");
-                return default;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Error(ex.Message, "系统提示");
+                var message = e is ValidationException ex ? string.Join(Environment.NewLine, ex.Errors) : e.Message;
+                MessageBox.Error(message, "系统提示");
                 return default;
             }
         }
