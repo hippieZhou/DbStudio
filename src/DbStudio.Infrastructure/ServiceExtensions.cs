@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DbStudio.Infrastructure.Uow;
+using DbStudio.Infrastructure.Uow.Impl;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DbStudio.Infrastructure
@@ -7,6 +9,8 @@ namespace DbStudio.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>();
+
             //if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             //{
             //    services.AddDbContext<ApplicationDbContext>(options =>
