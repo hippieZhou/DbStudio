@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text.Json;
 using System.Threading.Tasks;
 using DbStudio.Application.Exceptions;
 using DbStudio.Application.Interfaces;
 using DbStudio.Application.Wrappers;
 using HandyControl.Controls;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace DbStudio.WpfApp
 {
@@ -22,16 +22,11 @@ namespace DbStudio.WpfApp
         public async Task<Response<T>> SendAsync<T>(IRequest<Response<T>> request)
         {
 #if DEBUG
-            var payload = JsonSerializer.Serialize(
+            var payload = JsonConvert.SerializeObject(
                 new
                 {
                     Now = DateTime.Now.ToString("yyyy-MM-dd HH:ff:ss"),
                     Body = request
-                }, new JsonSerializerOptions
-                {
-                    AllowTrailingCommas = true,
-                    IncludeFields = true,
-                    WriteIndented = true
                 });
             Trace.WriteLine(payload);
 #endif
