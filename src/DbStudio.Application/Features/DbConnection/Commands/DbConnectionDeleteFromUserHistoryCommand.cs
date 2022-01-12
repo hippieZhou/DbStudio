@@ -39,7 +39,7 @@ namespace DbStudio.Application.Features.DbConnection.Commands
 
         public Task<Response<int>> Handle(DbConnectionDeleteFromUserHistoryCommand request,
             CancellationToken cancellationToken)
-        {
+        { 
             var uow = _unitOfWorkFactory.CreateLite();
             var result = uow.DeleteMany<UserDbConnection>(
                 nameof(UserDbConnection),

@@ -18,14 +18,6 @@ namespace DbStudio.WpfApp.Dialogs
 
         public ObservableCollection<DbConnection> HistoryConnections { get; } = new();
 
-        private DbConnection _historyConnection;
-
-        public DbConnection HistoryConnection
-        {
-            get => _historyConnection;
-            set => SetProperty(ref _historyConnection, value);
-        }
-
         private DbConnection _newConnection ;
 
         public DbConnection NewConnection
@@ -102,20 +94,20 @@ namespace DbStudio.WpfApp.Dialogs
 
             if (response != null)
             {
-                Result = NewConnection;
-                await SaveNewConnectionToHistoryAsync(cancellationToken);
+                Result = conn;
+                await SaveNewConnectionToHistoryAsync(conn, cancellationToken);
             }
 
             IsEnabled = true;
         }
 
-        private async Task SaveNewConnectionToHistoryAsync(CancellationToken cancellationToken)
+        private async Task SaveNewConnectionToHistoryAsync(DbConnection conn, CancellationToken cancellationToken)
         {
             await Mediator.SendAsync(new DbConnectionSaveToUserHistoryCommand
             {
-                DataSource = NewConnection.DataSource,
-                UserId = NewConnection.UserId,
-                Password = NewConnection.Password
+                DataSource = conn.DataSource,
+                UserId = conn.UserId,
+                Password = conn.Password
             }, cancellationToken);
             CloseAction?.Invoke();
         }

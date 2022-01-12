@@ -79,8 +79,7 @@
                     CanUserResizeRows="False"
                     CanUserSortColumns="True"
                     ItemsSource="{Binding HistoryConnections}"
-                    RowStyle="{StaticResource DataGridRowStyle}"
-                    SelectedItem="{Binding HistoryConnection}">
+                    RowStyle="{StaticResource DataGridRowStyle}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"

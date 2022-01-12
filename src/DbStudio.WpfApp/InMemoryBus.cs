@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using DbStudio.Application.Exceptions;
@@ -7,6 +6,7 @@ using DbStudio.Application.Interfaces;
 using DbStudio.Application.Wrappers;
 using DbStudio.WpfApp.Services;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace DbStudio.WpfApp
@@ -14,12 +14,14 @@ namespace DbStudio.WpfApp
     public class InMemoryBus : IEventBus
     {
         private readonly IDialogService _dialogService;
+        private readonly ILogger<InMemoryBus> _logger;
         private readonly IMediator _mediator;
 
-        public InMemoryBus(IMediator mediator, IDialogService dialogService)
+        public InMemoryBus(IMediator mediator, IDialogService dialogService, ILogger<InMemoryBus> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<Response<T>> SendAsync<T>(IRequest<Response<T>> request, CancellationToken cancellationToken = default)
@@ -31,7 +33,7 @@ namespace DbStudio.WpfApp
                     Now = DateTime.Now.ToString("yyyy-MM-dd HH:ff:ss"),
                     Body = request
                 }, Formatting.Indented);
-            Trace.WriteLine(payload);
+            _logger.LogInformation(payload);
 #endif
             try
             {

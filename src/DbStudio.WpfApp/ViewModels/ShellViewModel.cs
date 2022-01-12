@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Threading;
+using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
 using DbStudio.WpfApp.Dialogs;
 using DbStudio.WpfApp.Models;
@@ -14,24 +15,13 @@ namespace DbStudio.WpfApp.ViewModels
 
         private async Task LoadAsync()
         {
-            //var response = await Mediator.SendAsync(new DbConnectionTestCommand
-            //{
-            //    DataSource = "10.5.10.218",
-            //    UserId = "sa",
-            //    Password = "95938"
-            //});
-            //if (response != null)
-            //{
-            //    Message.Success("连接成功");
-            //}
-
             await Task.Yield();
         }
 
         private IAsyncRelayCommand _addServerCommand;
-        public IAsyncRelayCommand AddServerCommand => _addServerCommand ??= new AsyncRelayCommand(AddServer);
+        public IAsyncRelayCommand AddServerCommand => _addServerCommand ??= new AsyncRelayCommand(AddServerAsync);
 
-        private async Task AddServer()
+        private async Task AddServerAsync(CancellationToken arg)
         {
             var currentConn = await Dialog.Show<LoginDialog>(MessageToken.MainWindow)
                 .Initialize<LoginDialogViewModel>(vm => { })

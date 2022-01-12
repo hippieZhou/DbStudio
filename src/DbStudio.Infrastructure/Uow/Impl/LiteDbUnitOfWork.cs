@@ -8,6 +8,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
 {
     public class LiteDbUnitOfWork : ILiteDbUnitOfWork
     {
+        private bool _disposed;
         private readonly LiteDatabase _dbContext;
         private readonly RetryOptions _options;
 
@@ -33,5 +34,27 @@ namespace DbStudio.Infrastructure.Uow.Impl
 
         public int DeleteMany<T>(string tableName, Expression<Func<T, bool>> predicate)
             => Retry.Invoke(() => GetCollection<T>(tableName).DeleteMany(predicate), _options);
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~LiteDbUnitOfWork()
+            => Dispose(false);
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                _dbContext?.Dispose();
+            }
+
+            _disposed = true;
+        }
     }
 }

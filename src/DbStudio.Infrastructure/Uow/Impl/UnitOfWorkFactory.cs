@@ -57,7 +57,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
         }
 
         public ILiteDbUnitOfWork CreateLite(RetryOptions options = default)
-        {
+        { 
             var dbContext = new LiteDatabase(_liteDb);
             return new LiteDbUnitOfWork(dbContext, options);
         }
