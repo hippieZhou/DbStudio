@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.Input;
@@ -75,15 +74,14 @@ namespace DbStudio.WpfApp.ViewModels
             }
         }
 
-        private IAsyncRelayCommand _catalogChangedCommand;
+        private IRelayCommand _catalogChangedCommand;
 
-        public IAsyncRelayCommand CatalogChangedCommand =>
-            _catalogChangedCommand ??= new AsyncRelayCommand(CatalogChangedAsync);
+        public IRelayCommand CatalogChangedCommand =>
+            _catalogChangedCommand ??= new RelayCommand(CatalogChanged);
 
-        private async Task CatalogChangedAsync(CancellationToken cancellationToken)
+        private void CatalogChanged()
         {
-            Trace.WriteLine(CurrentConn.InitialCatalog);
-            await Task.Yield();
+            Messenger.Send(CurrentConn, nameof(ShellViewModel));
         }
     }
 }

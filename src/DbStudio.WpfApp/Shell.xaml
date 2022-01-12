@@ -8,6 +8,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:DbStudio.WpfApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:DbStudio.WpfApp.Views"
     xmlns:vm="clr-namespace:DbStudio.WpfApp.ViewModels"
     Title="数据还原工具"
     Width="1200"
@@ -109,7 +110,7 @@
                     <!--<view:BackupView/>-->
                 </TabItem>
                 <TabItem FontSize="23" Header="数据库信息">
-                    <!--<view:SummaryView/>-->
+                    <view:SummaryView />
                 </TabItem>
             </TabControl>
         </Grid>
