@@ -26,5 +26,30 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Background="{StaticResource DefaultBrush}" Orientation="Horizontal">
+                <Button
+                    Margin="12"
+                    HorizontalAlignment="Left"
+                    hc:IconElement.Geometry="{StaticResource AddGeometry}"
+                    Command="{Binding AddServerCommand}"
+                    Content="连接数据库"
+                    Style="{StaticResource ButtonPrimary}" />
+                <hc:Shield
+                    Status="{Binding CurrentConn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentConnToStringConverter}}"
+                    Subject="当前实例"
+                    Color="#1182c3" />
+            </StackPanel>
+            <Border
+                Height="1"
+                VerticalAlignment="Bottom"
+                Background="{StaticResource BorderBrush}" />
+        </Grid>
+    </Grid>
 </hc:Window>

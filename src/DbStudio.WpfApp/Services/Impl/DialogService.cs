@@ -8,5 +8,10 @@ namespace DbStudio.WpfApp.Services.Impl
         {
             MessageBox.Success(message, caption);
         }
+
+        public void Error(string message, string caption = "系统提示")
+        {
+            MessageBox.Error(message, caption);
+        }
     }
 }

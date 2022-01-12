@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DbStudio.Application.DTOs;
 using DbStudio.Application.Wrappers;
 using DbStudio.Domain.Entities;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
-using MapsterMapper;
 using MediatR;
 
 namespace DbStudio.Application.Features.DbConnection.Commands

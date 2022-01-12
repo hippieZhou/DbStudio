@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using DbStudio.Application;
+﻿using DbStudio.Application;
 using DbStudio.Infrastructure;
 using DbStudio.WpfApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace DbStudio.WpfApp
 {
