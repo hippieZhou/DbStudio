@@ -21,6 +21,7 @@ namespace DbStudio.WpfApp.ViewModels
         protected IDialogService Message => _message ??= Ioc.Default.GetRequiredService<IDialogService>();
 
         private DbConnection _currentConn;
+
         public DbConnection CurrentConn
         {
             get => _currentConn;

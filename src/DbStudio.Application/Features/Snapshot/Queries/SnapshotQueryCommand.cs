@@ -39,7 +39,7 @@ namespace DbStudio.Application.Features.Snapshot.Queries
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IMapper _mapper;
 
-        public SnapshotQueryCommandHandler(IUnitOfWorkFactory unitOfWorkFactory,IMapper mapper)
+        public SnapshotQueryCommandHandler(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper)
         {
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -61,7 +61,7 @@ WHERE db.name = '{request.InitialCatalog}'
       AND snapshots.source_database_id IS NOT NULL
 ORDER BY CreatedDate DESC;";
             var entities =
-                await uow.QueryAsync<IEnumerable<DbSnapShot>>(new DbCommandArgs { Sql = sql }, cancellationToken);
+                await uow.QueryAsync<DbSnapShot>(new DbCommandArgs { Sql = sql }, cancellationToken);
             var dtos = _mapper.Map<IEnumerable<DbSnapshotDto>>(entities);
             return new Response<IReadOnlyList<DbSnapshotDto>>(dtos.ToList());
         }

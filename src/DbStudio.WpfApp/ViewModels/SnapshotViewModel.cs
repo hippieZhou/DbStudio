@@ -2,8 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.Snapshot.Commands;
 using DbStudio.Application.Features.Snapshot.Queries;
+using DbStudio.Application.Wrappers;
+using DbStudio.WpfApp.Dialogs;
 using DbStudio.WpfApp.Models;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
+using MediatR;
 
 namespace DbStudio.WpfApp.ViewModels
 {
@@ -39,6 +45,7 @@ namespace DbStudio.WpfApp.ViewModels
 
         private async Task UpdateSnapShotListAsync()
         {
+            SnapshotList.Clear();
             var response = await Mediator.SendAsync(new SnapshotQueryCommand
             {
                 DataSource = CurrentConn.DataSource,
@@ -59,14 +66,31 @@ namespace DbStudio.WpfApp.ViewModels
             }
         }
 
-        private IAsyncRelayCommand<string> _createSnapshotCommand;
+        private IAsyncRelayCommand _createSnapshotCommand;
 
-        public IAsyncRelayCommand<string> CreateSnapshotCommand =>
-            _createSnapshotCommand ??= new AsyncRelayCommand<string>(CreateSnapshotAsync);
+        public IAsyncRelayCommand CreateSnapshotCommand =>
+            _createSnapshotCommand ??= new AsyncRelayCommand(CreateSnapshotAsync);
 
-        private Task CreateSnapshotAsync(string args, CancellationToken cancellationToken)
+        private async Task CreateSnapshotAsync(CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var request = new SnapshotCreateCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialCatalog = CurrentConn.InitialCatalog,
+                SnapshotName = SnapshotName
+            };
+
+            var dlg = Dialog.Show<LoadingDialog>(MessageToken.MainWindow)
+                .Initialize<LoadingDialogViewModel>(vm => { });
+            var response = await Mediator.SendAsync(request, cancellationToken);
+            dlg.Close();
+            if (response != null)
+            {
+                await UpdateSnapShotListAsync();
+                Message.Success("创建成功");
+            }
         }
 
         private IAsyncRelayCommand<DbSnapshot> _deleteSnapshotCommand;
