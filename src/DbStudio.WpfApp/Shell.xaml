@@ -79,7 +79,8 @@
                     Margin="4"
                     hc:IconElement.Geometry="{StaticResource RefreshGeometry}"
                     Command="{Binding RefreshCatalogCommand}"
-                    ToolTip="刷新" />
+                    ToolTip="刷新"
+                    Visibility="{Binding CurrentConn, Converter={StaticResource NullToEnabledConverter}}" />
                 <ListBox
                     Grid.Row="1"
                     Grid.Column="0"
@@ -104,10 +105,10 @@
                 Style="{StaticResource TabControlInLine}"
                 Visibility="{Binding CurrentConn, Converter={StaticResource Object2VisibilityConverter}}">
                 <TabItem FontSize="23" Header="快照创建/还原">
-                    <!--<view:SnapshotView/>-->
+                    <view:SnapshotView />
                 </TabItem>
                 <TabItem FontSize="23" Header="数据库备份/还原">
-                    <!--<view:BackupView/>-->
+                    <view:BackupView />
                 </TabItem>
                 <TabItem FontSize="23" Header="数据库信息">
                     <view:SummaryView />

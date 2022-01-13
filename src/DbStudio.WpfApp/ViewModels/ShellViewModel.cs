@@ -81,7 +81,7 @@ namespace DbStudio.WpfApp.ViewModels
 
         private void CatalogChanged()
         {
-            Messenger.Send(CurrentConn, nameof(ShellViewModel));
+            Messenger.Send(new CurrentConnChangedMessage(CurrentConn), nameof(ShellViewModel));
         }
     }
 }
