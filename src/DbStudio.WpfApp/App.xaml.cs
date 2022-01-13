@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using DbStudio.Application;
+﻿using DbStudio.Application;
 using DbStudio.Infrastructure;
 using DbStudio.WpfApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,12 +24,8 @@ namespace DbStudio.WpfApp
 #endif
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Debug()
-                .WriteTo.Async(c =>
-                    c.File(Path.Combine("Logs", "log.txt"),
-                        encoding: Encoding.UTF8,
-                        rollingInterval: RollingInterval.Day,
-                        restrictedToMinimumLevel: LogEventLevel.Warning))
+                .WriteTo.Async(c => c.ConfigureSerilog())
+                .WriteTo.Async(c => c.Debug())
                 .CreateLogger();
 
             this.SetupGlobalExceptionHandle();

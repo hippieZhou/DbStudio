@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.Snapshot.Queries;
 using DbStudio.WpfApp.Models;
 
 namespace DbStudio.WpfApp.ViewModels
@@ -27,10 +28,10 @@ namespace DbStudio.WpfApp.ViewModels
 
         protected override void OnActivated()
         {
-            Messenger.Register<SnapshotViewModel, DbConnection, string>(this, nameof(ShellViewModel),
+            Messenger.Register<SnapshotViewModel, CurrentConnChangedMessage, string>(this, nameof(ShellViewModel),
                 async (vm, conn) =>
                 {
-                    CurrentConn = conn;
+                    CurrentConn = conn.Value;
                     await UpdateSnapShotListAsync();
                 });
             base.OnActivated();
@@ -38,15 +39,53 @@ namespace DbStudio.WpfApp.ViewModels
 
         private async Task UpdateSnapShotListAsync()
         {
-            await Task.Yield();
+            var response = await Mediator.SendAsync(new SnapshotQueryCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialCatalog = CurrentConn.InitialCatalog
+            });
+            if (response != null)
+            {
+                foreach (var item in response.Data)
+                {
+                    SnapshotList.Add(new DbSnapshot
+                    {
+                        Name = item.Name,
+                        CreatedDate = item.CreatedDate
+                    });
+                }
+            }
         }
 
-        private IAsyncRelayCommand<string> _createCommand;
+        private IAsyncRelayCommand<string> _createSnapshotCommand;
 
-        public IAsyncRelayCommand<string> CreateCommand =>
-            _createCommand ??= new AsyncRelayCommand<string>(CreateAsync);
+        public IAsyncRelayCommand<string> CreateSnapshotCommand =>
+            _createSnapshotCommand ??= new AsyncRelayCommand<string>(CreateSnapshotAsync);
 
-        private Task CreateAsync(string args, CancellationToken cancellationToken)
+        private Task CreateSnapshotAsync(string args, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private IAsyncRelayCommand<DbSnapshot> _deleteSnapshotCommand;
+
+        public IAsyncRelayCommand<DbSnapshot> DeleteSnapshotCommand =>
+            _deleteSnapshotCommand ??= new AsyncRelayCommand<DbSnapshot>(DeleteSnapshotAsync);
+
+        private Task DeleteSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        private IAsyncRelayCommand<DbSnapshot> _restoreSnapshotCommand;
+
+        public IAsyncRelayCommand<DbSnapshot> RestoreSnapshotCommand =>
+            _restoreSnapshotCommand ??= new AsyncRelayCommand<DbSnapshot>(RestoreSnapshotAsync);
+
+        private Task RestoreSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
