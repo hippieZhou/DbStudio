@@ -1,9 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DbStudio.Application.Interfaces;
+using DbStudio.Application.Wrappers;
+using DbStudio.WpfApp.Dialogs;
 using DbStudio.WpfApp.Models;
 using DbStudio.WpfApp.Services;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
+using MediatR;
 
 namespace DbStudio.WpfApp.ViewModels
 {
@@ -26,6 +33,17 @@ namespace DbStudio.WpfApp.ViewModels
         {
             get => _currentConn;
             set => SetProperty(ref _currentConn, value);
+        }
+
+        protected async Task<Response<T>> ExecuteOnUILoadingAsync<T>(
+            IRequest<Response<T>> request,
+            CancellationToken cancellationToken = default)
+        {
+            var dlg = Dialog.Show<LoadingDialog>(MessageToken.MainWindow)
+                .Initialize<LoadingDialogViewModel>(vm => { });
+            var response = await Mediator.SendAsync(request, cancellationToken);
+            dlg.Close();
+            return response;
         }
     }
 

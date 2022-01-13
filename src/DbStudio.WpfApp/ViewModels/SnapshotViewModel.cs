@@ -4,12 +4,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using DbStudio.Application.Features.Snapshot.Commands;
 using DbStudio.Application.Features.Snapshot.Queries;
-using DbStudio.Application.Wrappers;
-using DbStudio.WpfApp.Dialogs;
 using DbStudio.WpfApp.Models;
-using HandyControl.Controls;
-using HandyControl.Tools.Extension;
-using MediatR;
 
 namespace DbStudio.WpfApp.ViewModels
 {
@@ -81,11 +76,7 @@ namespace DbStudio.WpfApp.ViewModels
                 InitialCatalog = CurrentConn.InitialCatalog,
                 SnapshotName = SnapshotName
             };
-
-            var dlg = Dialog.Show<LoadingDialog>(MessageToken.MainWindow)
-                .Initialize<LoadingDialogViewModel>(vm => { });
-            var response = await Mediator.SendAsync(request, cancellationToken);
-            dlg.Close();
+            var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
             if (response != null)
             {
                 await UpdateSnapShotListAsync();
@@ -98,9 +89,22 @@ namespace DbStudio.WpfApp.ViewModels
         public IAsyncRelayCommand<DbSnapshot> DeleteSnapshotCommand =>
             _deleteSnapshotCommand ??= new AsyncRelayCommand<DbSnapshot>(DeleteSnapshotAsync);
 
-        private Task DeleteSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
+        private async Task DeleteSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var request = new SnapshotDeleteCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialCatalog = CurrentConn.InitialCatalog,
+                SnapshotName = args.Name
+            };
+            var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
+            if (response != null)
+            {
+                await UpdateSnapShotListAsync();
+                Message.Success($"快照【{request.SnapshotName}】删除成功");
+            }
         }
 
 
@@ -109,9 +113,22 @@ namespace DbStudio.WpfApp.ViewModels
         public IAsyncRelayCommand<DbSnapshot> RestoreSnapshotCommand =>
             _restoreSnapshotCommand ??= new AsyncRelayCommand<DbSnapshot>(RestoreSnapshotAsync);
 
-        private Task RestoreSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
+        private async Task RestoreSnapshotAsync(DbSnapshot args, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var request = new SnapshotRestoreCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialCatalog = CurrentConn.InitialCatalog,
+                SnapshotName = args.Name
+            };
+            var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
+            if (response != null)
+            {
+                await UpdateSnapShotListAsync();
+                Message.Success($"快照【{request.SnapshotName}】还原成功");
+            }
         }
     }
 }
