@@ -34,7 +34,7 @@
                     Margin="12"
                     HorizontalAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource AddGeometry}"
-                    Command="{Binding AddServerCommand}"
+                    Command="{Binding LoginCommand}"
                     Content="连接数据库"
                     Style="{StaticResource ButtonPrimary}" />
                 <hc:Shield

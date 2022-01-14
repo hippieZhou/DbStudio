@@ -94,6 +94,7 @@ namespace DbStudio.WpfApp.Dialogs
 
             if (response != null)
             {
+                conn.InitialCatalog = "master";
                 Result = conn;
                 await SaveNewConnectionToHistoryAsync(conn, cancellationToken);
             }
