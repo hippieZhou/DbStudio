@@ -17,10 +17,10 @@ namespace DbStudio.WpfApp.ViewModels
         private readonly List<string> _cachedCatalogs = new();
         public ObservableCollection<string> Catalogs { get; } = new();
 
-        private IAsyncRelayCommand _addServerCommand;
-        public IAsyncRelayCommand AddServerCommand => _addServerCommand ??= new AsyncRelayCommand(AddServerAsync);
+        private IAsyncRelayCommand _loginCommand;
+        public IAsyncRelayCommand LoginCommand => _loginCommand ??= new AsyncRelayCommand(LoginAsync);
 
-        private async Task AddServerAsync(CancellationToken cancellationToken)
+        private async Task LoginAsync(CancellationToken cancellationToken)
         {
             var currentConn = await Dialog.Show<LoginDialog>(MessageToken.MainWindow)
                 .Initialize<LoginDialogViewModel>(vm => { })
@@ -81,6 +81,10 @@ namespace DbStudio.WpfApp.ViewModels
 
         private void CatalogChanged()
         {
+            if (string.IsNullOrWhiteSpace(CurrentConn.InitialCatalog))
+            {
+                CurrentConn.InitialCatalog = "master";
+            }
             OnPropertyChanged(nameof(CurrentConn));
             Messenger.Send(new CurrentConnChangedMessage(CurrentConn), nameof(ShellViewModel));
         }
