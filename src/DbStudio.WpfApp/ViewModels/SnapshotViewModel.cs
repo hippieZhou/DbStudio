@@ -32,7 +32,7 @@ namespace DbStudio.WpfApp.ViewModels
             Messenger.Register<SnapshotViewModel, CurrentConnChangedMessage, string>(this, nameof(ShellViewModel),
                 async (vm, conn) =>
                 {
-                    CurrentConn = conn.Value;
+                    vm.CurrentConn = conn.Value;
                     await UpdateSnapShotListAsync();
                 });
             base.OnActivated();

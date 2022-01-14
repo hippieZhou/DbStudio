@@ -15,11 +15,12 @@ namespace DbStudio.Application.Features.DataBase.Commands
         public string UserId { get; set; }
         public string Password { get; set; }
         public string InitialCatalog { get; set; }
-        public string InitialDirectory { get; set; }
+        public string PhysicalDirectory { get; set; }
+
         /// <summary>
         /// 是否启用差异备份(https://sqlbak.com/academy/database-backup)
         /// </summary>
-        public bool Differential { get; set; }
+        public bool EnableDiff { get; set; }
     }
 
     public class MyDataBaseBackupCommandValidator : AbstractValidator<DataBaseBackupCommand>
@@ -30,7 +31,7 @@ namespace DbStudio.Application.Features.DataBase.Commands
             RuleFor(x => x.UserId).NotEmpty().WithMessage("用户名不能为空");
             RuleFor(x => x.Password).NotEmpty().WithMessage("密码不能为空");
             RuleFor(x => x.InitialCatalog).NotEmpty().WithMessage("数据库不能为空");
-            RuleFor(x => x.InitialDirectory).NotEmpty().WithMessage("路径不能为空")
+            RuleFor(x => x.PhysicalDirectory).NotEmpty().WithMessage("路径不能为空")
                 .Must(Directory.Exists).WithMessage("目录不存在");
         }
     }
@@ -49,9 +50,9 @@ namespace DbStudio.Application.Features.DataBase.Commands
             var connString =
                 _unitOfWorkFactory.BuildConnectionString(request.DataSource, request.UserId, request.Password);
             var uow = await _unitOfWorkFactory.CreateAsync(connString, cancellationToken: cancellationToken);
-            var bakFile = Path.Combine(request.InitialDirectory, $"{request.InitialCatalog}.bak");
+            var bakFile = Path.Combine(request.PhysicalDirectory, $"{request.InitialCatalog}.bak");
             var bakSql = $"BACKUP DATABASE [{request.InitialCatalog}] TO DISK = '{bakFile}'";
-            if (request.Differential)
+            if (request.EnableDiff)
             {
                 bakSql += " WITH DIFFERENTIAL";
             }

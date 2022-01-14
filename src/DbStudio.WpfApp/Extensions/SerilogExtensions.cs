@@ -18,7 +18,11 @@ namespace DbStudio.WpfApp.Extensions
         }
 
         private static string OutputTemplate =>
-            "{NewLine}{NewLine}Date：{Timestamp:yyyy-MM-dd HH:mm:ss.fff}{NewLine}LogLevel：{Level}{NewLine}Message：{Message}{NewLine}{Exception}" +
+            "{NewLine}" +
+            "{NewLine}Date：{Timestamp:yyyy-MM-dd HH:mm:ss.fff}" +
+            "{NewLine}LogLevel：{Level}" +
+            "{NewLine}Message：{Message}" +
+            "{NewLine}{Exception}" +
             new string('-', 50);
 
         private static string LogFilePath(LogEventLevel logEventLevel) =>
