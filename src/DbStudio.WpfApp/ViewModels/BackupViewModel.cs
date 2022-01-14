@@ -153,7 +153,7 @@ namespace DbStudio.WpfApp.ViewModels
         /// </summary>
         public string EmptyDbPhysicalDirectory
         {
-            get => _physicalDirectory;
+            get => _emptyDbPhysicalDirectory;
             set => SetProperty(ref _emptyDbPhysicalDirectory, value);
         }
 
@@ -162,12 +162,6 @@ namespace DbStudio.WpfApp.ViewModels
         {
             get => _emptyDbName;
             set => SetProperty(ref _emptyDbName, value);
-        }
-        private string _emptyLogName;
-        public string EmptyLogName
-        {
-            get => _emptyLogName;
-            set => SetProperty(ref _emptyLogName, value);
         }
 
         private IRelayCommand _selectEmptyDbPhysicalDirectoryCommand;
@@ -191,7 +185,20 @@ namespace DbStudio.WpfApp.ViewModels
 
         private async Task RestoreEmptyDbAsync(CancellationToken cancellationToken)
         {
-            await Task.Yield();
+            var request = new DataBaseCreateCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialEmptyDbDirectory = EmptyDbPhysicalDirectory,
+                EmptyDbName = EmptyDbName,
+                EmptyLogName = $"{EmptyDbName}_log"
+            };
+            var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
+            if (response != null)
+            {
+                Message.Success($"【{request.EmptyDbName}】创建成功");
+            }
         }
     }
 }

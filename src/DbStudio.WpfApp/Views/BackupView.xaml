@@ -27,7 +27,6 @@
         <Grid Margin="12">
             <StackPanel>
                 <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow2}">
-                    <!--  Card 的内容部分  -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -48,7 +47,6 @@
                             Content="选择"
                             Style="{StaticResource MessageBoxButtonStyle}" />
                     </Grid>
-                    <!--  Card 的尾部部分  -->
                     <hc:Card.Footer>
                         <Grid>
                             <CheckBox
@@ -70,7 +68,6 @@
                     Margin="0,12"
                     BorderThickness="0"
                     Effect="{DynamicResource EffectShadow2}">
-                    <!--  Card 的内容部分  -->
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -111,7 +108,6 @@
                             Content="选择"
                             Style="{StaticResource MessageBoxButtonStyle}" />
                     </Grid>
-                    <!--  Card 的尾部部分  -->
                     <hc:Card.Footer>
                         <Grid>
                             <Label
@@ -133,7 +129,6 @@
                     Margin="0,12"
                     BorderThickness="0"
                     Effect="{DynamicResource EffectShadow2}">
-                    <!--  Card 的尾部部分  -->
                     <Expander Header="创建空库">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -158,25 +153,13 @@
                                 Command="{Binding SelectEmptyDbPhysicalDirectoryCommand}"
                                 Content="选择"
                                 Style="{StaticResource MessageBoxButtonStyle}" />
-                            <Grid
+                            <hc:TextBox
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Grid.ColumnSpan="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <hc:TextBox
-                                    Grid.Column="0"
-                                    Margin="12"
-                                    hc:InfoElement.Placeholder="请输入数据文件名称"
-                                    Text="{Binding EmptyDbName}" />
-                                <hc:TextBox
-                                    Grid.Column="1"
-                                    Margin="12"
-                                    hc:InfoElement.Placeholder="请输入日志文件名称"
-                                    Text="{Binding EmptyLogName}" />
-                            </Grid>
+                                Grid.ColumnSpan="2"
+                                Margin="12"
+                                hc:InfoElement.Placeholder="请输入数据文件名称"
+                                Text="{Binding EmptyDbName}" />
                         </Grid>
                     </Expander>
                     <!--  Card 的尾部部分  -->
