@@ -24,7 +24,10 @@ namespace DbStudio.WpfApp
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<Response<T>> SendAsync<T>(IRequest<Response<T>> request, CancellationToken cancellationToken = default)
+        public async Task<Response<T>> SendAsync<T>(
+            IRequest<Response<T>> request,
+            CancellationToken cancellationToken = default, 
+            bool throwEx = true)
         {
 #if DEBUG
             var payload = JsonConvert.SerializeObject(
@@ -42,7 +45,12 @@ namespace DbStudio.WpfApp
             catch (Exception e)
             {
                 var message = e is ValidationException ex ? string.Join(Environment.NewLine, ex.Errors) : e.Message;
-                _dialogService.Error(message);
+                _logger.LogError(e, message);
+                if (throwEx)
+                {
+                    _dialogService.Error(message);
+                }
+
                 return default;
             }
         }

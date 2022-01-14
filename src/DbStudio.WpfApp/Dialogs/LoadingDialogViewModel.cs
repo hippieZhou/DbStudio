@@ -15,7 +15,7 @@ namespace DbStudio.WpfApp.Dialogs
         private IAsyncRelayCommand _loadedCommand;
         public IAsyncRelayCommand LoadedCommand => _loadedCommand ??= new AsyncRelayCommand(LoadedAsync);
 
-        private async Task LoadedAsync(CancellationToken arg)
+        private async Task LoadedAsync(CancellationToken cancellationToken)
         {
             await Task.Yield();
         }

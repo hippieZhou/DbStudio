@@ -109,7 +109,7 @@ namespace DbStudio.WpfApp.Dialogs
                 DataSource = conn.DataSource,
                 UserId = conn.UserId,
                 Password = conn.Password
-            }, cancellationToken);
+            }, cancellationToken, false);
             CloseAction?.Invoke();
         }
 
@@ -120,7 +120,7 @@ namespace DbStudio.WpfApp.Dialogs
 
         private async Task DeleteHistoryAsync(DbConnection conn, CancellationToken cancellationToken)
         {
-           var response = await Mediator.SendAsync(new DbConnectionDeleteFromUserHistoryCommand
+            var response = await Mediator.SendAsync(new DbConnectionDeleteFromUserHistoryCommand
             {
                 DataSource = conn.DataSource,
                 UserId = conn.UserId,

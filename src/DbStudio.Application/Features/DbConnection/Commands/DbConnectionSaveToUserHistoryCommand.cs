@@ -41,7 +41,7 @@ namespace DbStudio.Application.Features.DbConnection.Commands
             DbConnectionSaveToUserHistoryCommand request,
             CancellationToken cancellationToken)
         {
-            var uow = _unitOfWorkFactory.CreateLite();
+            using var uow = _unitOfWorkFactory.CreateLite();
             var entity =
                 uow.FindOne<UserDbConnection>(nameof(UserDbConnection), x => x.DataSource == request.DataSource);
             if (entity == null)
