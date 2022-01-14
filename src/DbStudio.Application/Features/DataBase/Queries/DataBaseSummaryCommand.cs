@@ -46,11 +46,11 @@ namespace DbStudio.Application.Features.DataBase.Queries
                 _unitOfWorkFactory.BuildConnectionString(request.DataSource, request.UserId, request.Password);
             var uow = await _unitOfWorkFactory.CreateAsync(connString, cancellationToken: cancellationToken);
             var version =
-                await uow.QueryFirstOrDefault<string>(
+                await uow.QueryFirstOrDefaultAsync<string>(
                     new DbCommandArgs { Sql = "SELECT @@VERSION" },
                     cancellationToken);
 
-            var fileName = await uow.QueryFirstOrDefault<string>(
+            var fileName = await uow.QueryFirstOrDefaultAsync<string>(
                 new DbCommandArgs
                     { Sql = $"SELECT filename FROM master.dbo.sysdatabases WHERE name = '{request.InitialCatalog}';" },
                 cancellationToken);

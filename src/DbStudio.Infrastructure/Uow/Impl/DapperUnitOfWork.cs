@@ -51,7 +51,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
                 _options);
         }
 
-        public Task<T> QueryFirstOrDefault<T>(DbCommandArgs command, CancellationToken cancellationToken = default)
+        public Task<T> QueryFirstOrDefaultAsync<T>(DbCommandArgs command, CancellationToken cancellationToken = default)
         {
             return Retry.Invoke(() => _connection.QueryFirstOrDefaultAsync<T>(
                     CreateCommandDefinition(command, cancellationToken)),

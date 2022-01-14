@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Input;
 using DbStudio.Application.Features.DataBase.Commands;
+using DbStudio.WpfApp.Dialogs;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
 
 namespace DbStudio.WpfApp.ViewModels
 {
@@ -117,9 +120,16 @@ namespace DbStudio.WpfApp.ViewModels
 
         private void SelectPhysicalFile()
         {
-
+            var ofd = new OpenFileDialog
+            {
+                Filter = @"(*.bak)|*.bak",
+                Multiselect = false
+            };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                PhysicalFilePath = ofd.FileName;
+            }
         }
-
 
         private IRelayCommand _selectNewPhysicalDirectoryCommand;
         public IRelayCommand SelectNewPhysicalDirectoryCommand =>
@@ -127,7 +137,11 @@ namespace DbStudio.WpfApp.ViewModels
 
         private void SelectNewPhysicalDirectory()
         {
-
+            var openFile = new FolderBrowserDialog();
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                NewPhysicalDirectory = openFile.SelectedPath;
+            }
         }
 
         private IAsyncRelayCommand _dataBaseRestoreCommand;
@@ -137,7 +151,23 @@ namespace DbStudio.WpfApp.ViewModels
 
         private async Task DataBaseRestoreAsync(CancellationToken cancellationToken)
         {
-            await Task.Yield();
+            var request = new DataBaseRestoreCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialBakFile = PhysicalFilePath,
+                InitialBakDirectory = NewPhysicalDirectory
+            };
+            var dlg = Dialog.Show<LoadingProgressDialog>(MessageToken.MainWindow)
+                .Initialize<LoadingProgressDialogViewModel>(vm => { vm.CurrentConn = CurrentConn; });
+            var response = await Mediator.SendAsync(request, cancellationToken);
+            dlg.GetViewModel<LoadingProgressDialogViewModel>().LoadedCommand.Cancel();
+            dlg.Close();
+            if (response != null)
+            {
+                Message.Success($"【{response.Data.Catalog}】还原成功，还原路径为：{response.Data.Path}");
+            }
         }
     }
 

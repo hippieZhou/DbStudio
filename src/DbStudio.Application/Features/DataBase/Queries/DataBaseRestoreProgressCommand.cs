@@ -2,13 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using DbStudio.Application.Wrappers;
+using DbStudio.Domain.Entities;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
 
 namespace DbStudio.Application.Features.DataBase.Queries
 {
-    public class DataBaseRestoreProgressCommand: IRequest<Response<int>>
+    public class DataBaseRestoreProgressCommand: IRequest<Response<int?>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }
@@ -26,7 +27,7 @@ namespace DbStudio.Application.Features.DataBase.Queries
     }
 
     public class
-        DataBaseRestoreProgressCommandHandler : IRequestHandler<DataBaseRestoreProgressCommand, Response<int>>
+        DataBaseRestoreProgressCommandHandler : IRequestHandler<DataBaseRestoreProgressCommand, Response<int?>>
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
@@ -35,7 +36,8 @@ namespace DbStudio.Application.Features.DataBase.Queries
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
 
-        public async Task<Response<int>> Handle(DataBaseRestoreProgressCommand request, CancellationToken cancellationToken)
+        public async Task<Response<int?>> Handle(DataBaseRestoreProgressCommand request,
+            CancellationToken cancellationToken)
         {
 
             const string sqlFormat = @"
@@ -58,8 +60,9 @@ WHERE er.[command] = 'RESTORE DATABASE';";
             var connString =
                 _unitOfWorkFactory.BuildConnectionString(request.DataSource, request.UserId, request.Password);
             var uow = await _unitOfWorkFactory.CreateAsync(connString, cancellationToken: cancellationToken);
-            var result = await uow.ExecuteAsync(new DbCommandArgs { Sql = sqlFormat }, cancellationToken);
-            return new Response<int>(result);
+            var result =
+                await uow.QueryFirstOrDefaultAsync<DbExec>(new DbCommandArgs { Sql = sqlFormat }, cancellationToken);
+            return new Response<int?>(result?.CompletePercent);
         }
     }
 }

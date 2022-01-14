@@ -60,7 +60,7 @@ WHERE db.name = '{request.InitialCatalog}'
       AND ss.name = '{snapshotName}';";
 
             var ssResult =
-                await uow.QueryFirstOrDefault<DbSnapShot>(new DbCommandArgs { Sql = ssQuery }, cancellationToken);
+                await uow.QueryFirstOrDefaultAsync<DbSnapShot>(new DbCommandArgs { Sql = ssQuery }, cancellationToken);
             if (ssResult != null)
                 return new Response<int>("当前快照名称已存在");
 
@@ -71,7 +71,7 @@ FROM [{request.InitialCatalog}].sys.database_files AS df
 WHERE df.type = 0;";
 
             var dfResult =
-                await uow.QueryFirstOrDefault<DbFile>(new DbCommandArgs { Sql = dfQuerySql }, cancellationToken);
+                await uow.QueryFirstOrDefaultAsync<DbFile>(new DbCommandArgs { Sql = dfQuerySql }, cancellationToken);
             if (dfResult == null)
                 return new Response<int>("当前数据库逻辑文件不已存在");
 
