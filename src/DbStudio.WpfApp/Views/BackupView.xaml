@@ -66,6 +66,130 @@
                     </hc:Card.Footer>
                 </hc:Card>
 
+                <hc:Card
+                    Margin="0,12"
+                    BorderThickness="0"
+                    Effect="{DynamicResource EffectShadow2}">
+                    <!--  Card 的内容部分  -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <hc:TextBox
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="12,12,12,24"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="请选择以 .bak 结尾的文件"
+                            hc:TitleElement.Title="数据库还原文件"
+                            Text="{Binding PhysicalFilePath}" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,0,12,24"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding SelectPhysicalFileCommand}"
+                            Content="选择"
+                            Style="{StaticResource MessageBoxButtonStyle}" />
+                        <hc:TextBox
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="12,0,12,24"
+                            hc:InfoElement.Placeholder="请选择还原的目标路径"
+                            Text="{Binding NewPhysicalDirectory}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,0,12,24"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding SelectNewPhysicalDirectoryCommand}"
+                            Content="选择"
+                            Style="{StaticResource MessageBoxButtonStyle}" />
+                    </Grid>
+                    <!--  Card 的尾部部分  -->
+                    <hc:Card.Footer>
+                        <Grid>
+                            <Label
+                                Margin="12"
+                                HorizontalAlignment="Left"
+                                Content="注意：执行该操作会自动删除相关联的快照，当所选择的数据库实例不存在时，会自动创建该备份库对应的实例"
+                                Style="{StaticResource LabelInfo}" />
+                            <Button
+                                Margin="12"
+                                HorizontalAlignment="Right"
+                                Command="{Binding DataBaseRestoreCommand}"
+                                Content="还原"
+                                Style="{StaticResource MessageBoxPrimaryButtonStyle}" />
+                        </Grid>
+                    </hc:Card.Footer>
+                </hc:Card>
+
+                <hc:Card
+                    Margin="0,12"
+                    BorderThickness="0"
+                    Effect="{DynamicResource EffectShadow2}">
+                    <!--  Card 的尾部部分  -->
+                    <Expander Header="创建空库">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <hc:TextBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="12"
+                                hc:InfoElement.Placeholder="请选择还原的目标路径"
+                                Text="{Binding EmptyDbPhysicalDirectory}" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="12"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding SelectEmptyDbPhysicalDirectoryCommand}"
+                                Content="选择"
+                                Style="{StaticResource MessageBoxButtonStyle}" />
+                            <Grid
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <hc:TextBox
+                                    Grid.Column="0"
+                                    Margin="12"
+                                    hc:InfoElement.Placeholder="请输入数据文件名称"
+                                    Text="{Binding EmptyDbName}" />
+                                <hc:TextBox
+                                    Grid.Column="1"
+                                    Margin="12"
+                                    hc:InfoElement.Placeholder="请输入日志文件名称"
+                                    Text="{Binding EmptyLogName}" />
+                            </Grid>
+                        </Grid>
+                    </Expander>
+                    <!--  Card 的尾部部分  -->
+                    <hc:Card.Footer>
+                        <Button
+                            Margin="12"
+                            HorizontalAlignment="Right"
+                            Command="{Binding RestoreEmptyDbCommand}"
+                            Content="还原"
+                            Style="{StaticResource MessageBoxPrimaryButtonStyle}" />
+                    </hc:Card.Footer>
+                </hc:Card>
+
                 <hc:Shield
                     Margin="12"
                     Status="备份/还原目前只支持对本机数据库进行操作"
