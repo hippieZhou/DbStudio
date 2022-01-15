@@ -41,7 +41,7 @@ namespace DbStudio.Application.Behaviours
             {
                 timer.Stop();
                 _logger.LogInformation(
-                    $"Begin Request Id:{uniqueId}, request name:{requestName}, total request time:{timer.ElapsedMilliseconds}");
+                    $"Begin Request Id:{uniqueId}, request name:{requestName}, total request time:{timer.ElapsedMilliseconds} ms");
             }
         }
     }

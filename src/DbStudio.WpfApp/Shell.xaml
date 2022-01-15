@@ -80,7 +80,7 @@
                     hc:IconElement.Geometry="{StaticResource RefreshGeometry}"
                     Command="{Binding RefreshCatalogCommand}"
                     ToolTip="刷新"
-                    Visibility="{Binding CurrentConn, Converter={StaticResource NullToEnabledConverter}}" />
+                    Visibility="{Binding CurrentConn, Converter={StaticResource NullToVisibilityConverter}}" />
                 <ListBox
                     Grid.Row="1"
                     Grid.Column="0"

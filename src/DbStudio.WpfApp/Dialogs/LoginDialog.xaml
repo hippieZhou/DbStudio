@@ -9,9 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="480"
     Height="340"
-    d:DesignHeight="300"
+    d:DesignHeight="340"
     d:DesignWidth="480"
-    Background="{StaticResource DefaultBrush}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style BasedOn="{StaticResource TextBoxExtend}" TargetType="hc:TextBox">
@@ -47,120 +46,138 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid IsEnabled="{Binding IsEnabled}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <hc:Divider
-                Margin="12,24,12,6"
-                Content="SQL Server"
-                FontSize="20"
-                Orientation="Horizontal" />
-            <Button
-                Width="32"
-                Height="32"
-                Margin="0,-12,4,0"
-                HorizontalAlignment="Right"
-                hc:IconElement.Geometry="{StaticResource CloseGeometry}"
-                Command="hc:ControlCommands.Close"
-                Foreground="{StaticResource SecondaryBorderBrush}"
-                Style="{StaticResource ButtonIcon}" />
-        </Grid>
-        <TabControl Grid.Row="1" Style="{StaticResource TabControlInLine}">
-            <TabItem Header="历史连接">
-                <DataGrid
-                    hc:DataGridAttach.ApplyDefaultStyle="False"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserReorderColumns="False"
-                    CanUserResizeRows="False"
-                    CanUserSortColumns="True"
-                    ItemsSource="{Binding HistoryConnections}"
-                    RowStyle="{StaticResource DataGridRowStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding DataSource}"
-                            CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
-                            Header="主机"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding UserId}"
-                            CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
-                            Header="用户名"
-                            IsReadOnly="True" />
-                        <DataGridTemplateColumn
-                            Width="140"
-                            CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
-                            Header="操作">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <Button
-                                            Margin="4,0"
-                                            Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                            CommandParameter="{Binding}"
-                                            Content="使用"
-                                            Style="{StaticResource ButtonSuccess}" />
-                                        <Button
-                                            Margin="4,0"
-                                            Command="{Binding DataContext.DeleteHistoryCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                            CommandParameter="{Binding}"
-                                            Content="删除"
-                                            Style="{StaticResource ButtonDanger}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="新建连接">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="6">
-                        <hc:TextBox hc:TitleElement.Title="主机" Text="{Binding NewConnection.DataSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <hc:TextBox hc:TitleElement.Title="用户名" Text="{Binding NewConnection.UserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <hc:PasswordBox
-                            Margin="12"
-                            hc:TitleElement.Title="密码"
-                            hc:TitleElement.TitlePlacement="Left"
-                            hc:TitleElement.TitleWidth="48"
-                            IsSafeEnabled="False"
-                            ShowEyeButton="True"
-                            UnsafePassword="{Binding NewConnection.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <Grid Grid.Row="1" Margin="12">
-                        <Button
-                            HorizontalAlignment="Left"
-                            Command="{Binding TestCommand}"
-                            Content="测试连接" />
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button
-                                Command="{Binding ConnectCommand}"
-                                CommandParameter="{Binding NewConnection}"
-                                Content="确定"
-                                Style="{StaticResource MessageBoxPrimaryButtonStyle}" />
-                            <Button
-                                Command="{Binding CancelCommand}"
-                                Content="取消"
-                                Style="{StaticResource MessageBoxButtonStyle}" />
+    <Border Background="{StaticResource DefaultBrush}">
+        <Grid IsEnabled="{Binding IsEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <hc:Divider
+                    Margin="12,24,12,6"
+                    Content="SQL Server"
+                    FontSize="20"
+                    Orientation="Horizontal" />
+                <Button
+                    Width="32"
+                    Height="32"
+                    Margin="0,-12,4,0"
+                    HorizontalAlignment="Right"
+                    hc:IconElement.Geometry="{StaticResource CloseGeometry}"
+                    Command="hc:ControlCommands.Close"
+                    Foreground="{StaticResource SecondaryBorderBrush}"
+                    Style="{StaticResource ButtonIcon}" />
+            </Grid>
+            <TabControl Grid.Row="1" Style="{StaticResource TabControlInLine}">
+                <TabItem Header="新建连接">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="6">
+                            <hc:TextBox hc:TitleElement.Title="主机" Text="{Binding NewConnection.DataSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <hc:TextBox hc:TitleElement.Title="用户名" Text="{Binding NewConnection.UserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <hc:PasswordBox
+                                Margin="12"
+                                hc:TitleElement.Title="密码"
+                                hc:TitleElement.TitlePlacement="Left"
+                                hc:TitleElement.TitleWidth="48"
+                                IsSafeEnabled="False"
+                                ShowEyeButton="True"
+                                UnsafePassword="{Binding NewConnection.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
+                        <Grid Grid.Row="1" Margin="12">
+                            <Button
+                                HorizontalAlignment="Left"
+                                Command="{Binding TestCommand}"
+                                Content="测试连接" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding ConnectCommand}"
+                                    CommandParameter="{Binding NewConnection}"
+                                    Content="确定"
+                                    Style="{StaticResource MessageBoxPrimaryButtonStyle}" />
+                                <Button
+                                    Command="{Binding CancelCommand}"
+                                    Content="取消"
+                                    Style="{StaticResource MessageBoxButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </TabItem>
-
-        </TabControl>
-        <hc:LoadingCircle
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Visibility="{Binding IsEnabled, Converter={StaticResource Boolean2VisibilityReConverter}}" />
-    </Grid>
+                </TabItem>
+                <TabItem Header="历史连接">
+                    <DataGrid
+                        hc:DataGridAttach.ApplyDefaultStyle="False"
+                        AutoGenerateColumns="False"
+                        Background="Transparent"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeRows="False"
+                        CanUserSortColumns="True"
+                        ItemsSource="{Binding HistoryConnections}"
+                        RowStyle="{StaticResource DataGridRowStyle}">
+                        <!--<DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <hc:Empty Content="aaa" />
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                        <DataGrid.Style>
+                            <Style TargetType="DataGrid">
+                                <Setter Property="RowDetailsVisibilityMode" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.HistoryConnections, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Value="false">
+                                        <Setter Property="RowHeight" Value="0" />
+                                        <Setter Property="RowDetailsVisibilityMode" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Style>-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding DataSource}"
+                                CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
+                                Header="主机"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="120"
+                                Binding="{Binding UserId}"
+                                CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
+                                Header="用户名"
+                                IsReadOnly="True" />
+                            <DataGridTemplateColumn
+                                Width="140"
+                                CellStyle="{StaticResource DataGridTextCenterColumnStyle}"
+                                Header="操作">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Button
+                                                Margin="4,0"
+                                                Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}"
+                                                Content="使用"
+                                                Style="{StaticResource ButtonSuccess}" />
+                                            <Button
+                                                Margin="4,0"
+                                                Command="{Binding DataContext.DeleteHistoryCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}"
+                                                Content="删除"
+                                                Style="{StaticResource ButtonDanger}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            <hc:LoadingCircle
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Visibility="{Binding IsEnabled, Converter={StaticResource Boolean2VisibilityReConverter}}" />
+        </Grid>
+    </Border>
 </UserControl>
