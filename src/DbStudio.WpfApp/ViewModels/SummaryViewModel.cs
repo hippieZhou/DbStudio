@@ -37,7 +37,7 @@ namespace DbStudio.WpfApp.ViewModels
                 Password = CurrentConn.Password,
                 InitialCatalog = CurrentConn.InitialCatalog
             });
-            if (response != null)
+            if (response.Succeeded)
             {
                 Summary.DataSource = CurrentConn.DataSource;
                 Summary.InitialCatalog = CurrentConn.InitialCatalog;

@@ -79,7 +79,7 @@ namespace DbStudio.WpfApp.ViewModels
             };
 
             var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 Message.Success($"【{request.InitialCatalog}】备份成功，备份路径为：{response.Data.FullName}");
             }
@@ -164,7 +164,7 @@ namespace DbStudio.WpfApp.ViewModels
             var response = await Mediator.SendAsync(request, cancellationToken);
             dlg.GetViewModel<LoadingProgressDialogViewModel>().LoadedCommand.Cancel();
             dlg.Close();
-            if (response != null)
+            if (response.Succeeded)
             {
                 Message.Success($"【{response.Data.Catalog}】还原成功，还原路径为：{response.Data.Path}");
             }
@@ -225,7 +225,7 @@ namespace DbStudio.WpfApp.ViewModels
                 EmptyLogName = $"{EmptyDbName}_log"
             };
             var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 Message.Success($"【{request.EmptyDbName}】创建成功");
             }

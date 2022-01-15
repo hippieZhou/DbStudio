@@ -43,7 +43,7 @@ namespace DbStudio.WpfApp.Dialogs
 
             HistoryConnections.Clear();
             var response = await Mediator.SendAsync(new DbConnectionQueryFromUserHistoryCommand(), cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 foreach (var dto in response.Data)
                 {
@@ -72,7 +72,7 @@ namespace DbStudio.WpfApp.Dialogs
                 UserId = NewConnection.UserId,
                 Password = NewConnection.Password
             }, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
                 Message.Success("数据库连接成功");
 
             IsEnabled = true;
@@ -92,7 +92,7 @@ namespace DbStudio.WpfApp.Dialogs
                 Password = conn.Password
             }, cancellationToken);
 
-            if (response != null)
+            if (response.Succeeded)
             {
                 conn.InitialCatalog = "master";
                 Result = conn;
@@ -127,7 +127,7 @@ namespace DbStudio.WpfApp.Dialogs
                 Password = conn.Password
             }, cancellationToken);
 
-           if (response != null)
+           if (response.Succeeded)
            {
                LoadedCommand?.ExecuteAsync(cancellationToken);
            }

@@ -62,7 +62,7 @@ namespace DbStudio.WpfApp.ViewModels
                 Password = CurrentConn.Password
             }, cancellationToken);
 
-            if (response != null)
+            if (response.Succeeded)
             {
                 _cachedCatalogs.Clear();
                 Catalogs.Clear();

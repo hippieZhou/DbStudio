@@ -48,7 +48,7 @@ namespace DbStudio.WpfApp.ViewModels
                 Password = CurrentConn.Password,
                 InitialCatalog = CurrentConn.InitialCatalog
             });
-            if (response != null)
+            if (response.Succeeded)
             {
                 foreach (var item in response.Data)
                 {
@@ -77,7 +77,7 @@ namespace DbStudio.WpfApp.ViewModels
                 SnapshotName = SnapshotName
             };
             var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 await UpdateSnapShotListAsync();
                 Message.Success("创建成功");
@@ -100,7 +100,7 @@ namespace DbStudio.WpfApp.ViewModels
                 SnapshotName = args.Name
             };
             var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 await UpdateSnapShotListAsync();
                 Message.Success($"快照【{request.SnapshotName}】删除成功");
@@ -124,7 +124,7 @@ namespace DbStudio.WpfApp.ViewModels
                 SnapshotName = args.Name
             };
             var response = await ExecuteOnUILoadingAsync(request, cancellationToken);
-            if (response != null)
+            if (response.Succeeded)
             {
                 await UpdateSnapShotListAsync();
                 Message.Success($"快照【{request.SnapshotName}】还原成功");

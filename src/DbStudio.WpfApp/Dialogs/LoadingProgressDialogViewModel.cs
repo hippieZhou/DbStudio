@@ -38,7 +38,7 @@ namespace DbStudio.WpfApp.Dialogs
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(500), cancellationToken);
                 var response = await Mediator.SendAsync(request, cancellationToken);
-                if (response != null)
+                if (response.Succeeded)
                 {
                     Progress = Math.Max(Progress, response.Data.GetValueOrDefault());
                 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DbStudio.Application.Exceptions;
 using DbStudio.Application.Interfaces;
 using DbStudio.Application.Wrappers;
 using DbStudio.WpfApp.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace DbStudio.WpfApp
 {
@@ -26,33 +24,16 @@ namespace DbStudio.WpfApp
 
         public async Task<Response<T>> SendAsync<T>(
             IRequest<Response<T>> request,
-            CancellationToken cancellationToken = default, 
+            CancellationToken cancellationToken = default,
             bool throwEx = true)
         {
-#if DEBUG
-            var payload = JsonConvert.SerializeObject(
-                new
-                {
-                    Now = DateTime.Now.ToString("yyyy-MM-dd HH:ff:ss"),
-                    Body = request
-                }, Formatting.Indented);
-            _logger.LogInformation(payload);
-#endif
-            try
+            var response = await _mediator.Send(request, cancellationToken);
+            if (response.Succeeded == false && throwEx)
             {
-                return await _mediator.Send(request, cancellationToken);
+                _dialogService.Error(response.Message);
             }
-            catch (Exception e)
-            {
-                var message = e is ValidationException ex ? string.Join(Environment.NewLine, ex.Errors) : e.Message;
-                _logger.LogError(e, message);
-                if (throwEx)
-                {
-                    _dialogService.Error(message);
-                }
 
-                return default;
-            }
+            return response;
         }
     }
 }
