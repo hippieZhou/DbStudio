@@ -5,21 +5,18 @@ using DbStudio.Application.Interfaces;
 using DbStudio.Application.Wrappers;
 using DbStudio.WpfApp.Services;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace DbStudio.WpfApp
 {
     public class InMemoryBus : IEventBus
     {
         private readonly IDialogService _dialogService;
-        private readonly ILogger<InMemoryBus> _logger;
         private readonly IMediator _mediator;
 
-        public InMemoryBus(IMediator mediator, IDialogService dialogService, ILogger<InMemoryBus> logger)
+        public InMemoryBus(IMediator mediator, IDialogService dialogService)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<Response<T>> SendAsync<T>(

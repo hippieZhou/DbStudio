@@ -16,7 +16,6 @@
             <!--  Other app resources here  -->
             <converter:CurrentConnToStringConverter x:Key="CurrentConnToStringConverter" />
             <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-            <!--<converter:Collection2VisibilityConverter x:Key="Collection2VisibilityConverter"/>-->
             <Style TargetType="hc:Window">
                 <Setter Property="hc:WindowAttach.IgnoreAltF4" Value="True" />
             </Style>

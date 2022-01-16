@@ -118,22 +118,6 @@
                         CanUserSortColumns="True"
                         ItemsSource="{Binding HistoryConnections}"
                         RowStyle="{StaticResource DataGridRowStyle}">
-                        <!--<DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <hc:Empty Content="aaa" />
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                        <DataGrid.Style>
-                            <Style TargetType="DataGrid">
-                                <Setter Property="RowDetailsVisibilityMode" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.HistoryConnections, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Value="false">
-                                        <Setter Property="RowHeight" Value="0" />
-                                        <Setter Property="RowDetailsVisibilityMode" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.Style>-->
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="*"

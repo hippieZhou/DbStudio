@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DbStudio.Application.Behaviours
 {
-    public class AppLoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
-        private readonly ILogger<AppLoggingBehaviour<TRequest, TResponse>> _logger;
+        private readonly ILogger<LoggingBehaviour<TRequest, TResponse>> _logger;
 
-        public AppLoggingBehaviour(ILogger<AppLoggingBehaviour<TRequest, TResponse>> logger)
+        public LoggingBehaviour(ILogger<LoggingBehaviour<TRequest, TResponse>> logger)
         {
             _logger = logger;
         }
