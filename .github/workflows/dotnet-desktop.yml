@@ -50,12 +50,13 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Release]
+        configuration: [Debug,Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
+      Configuration: Release
       Solution_Name: DbStudio.sln                                   # Replace with your solution name, i.e. MyWpfApp.sln.
       Wap_Project_Directory: src                                    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: src/DbStudio.WpfApp/DbStudio.WpfApp.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
@@ -76,6 +77,10 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
+    # Add NuGet To PATH
+    - name: Setup NuGet.exe
+      uses: NuGet/setup-nuget@v1.0.2
+
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
@@ -91,18 +96,18 @@ jobs:
       run: dotnet publish ${{ env.Wap_Project_Path }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
 
 
-    - uses: actions/create-release@v1
-      id: create_release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
+    # - uses: actions/create-release@v1
+    #   id: create_release
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: ${{ github.ref }}
+    #     release_name: ${{ github.ref }}
 
-    - uses: csexton/release-asset-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        pattern: ClassCommands/bin/Release/net5.0-windows/win-x64/publish/*.exe
-        release-url: ${{ steps.create_release.outputs.upload_url }}
+    # - uses: csexton/release-asset-action@v2
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     pattern: ClassCommands/bin/Release/net5.0-windows/win-x64/publish/*.exe
+    #     release-url: ${{ steps.create_release.outputs.upload_url }}
 
     

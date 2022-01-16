@@ -6,6 +6,8 @@
     <UseWPF>true</UseWPF>
 	  <UseWindowsForms>true</UseWindowsForms>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
+    <StartupObject>DbStudio.WpfApp.App</StartupObject>
+     <PlatformTarget>$(Platform)</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

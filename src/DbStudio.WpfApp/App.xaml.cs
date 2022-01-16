@@ -25,7 +25,6 @@ namespace DbStudio.WpfApp
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.ConfigureSerilog())
-                .WriteTo.Async(c => c.Debug())
                 .CreateLogger();
 
             this.SetupGlobalExceptionHandle();
