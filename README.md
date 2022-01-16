@@ -30,3 +30,9 @@
 cd src
 dotnet publish -c release --self-contained -r win-x64 DbStudio.WpfApp
 ```
+
+# 参考
+
+- [github-actions-for-desktop-apps](https://github.com/microsoft/github-actions-for-desktop-apps)
+- [wpf-tutorials](https://github.com/SingletonSean/wpf-tutorials)
+- [building-net-framework-apps-using-github-actions](https://timheuer.com/blog/building-net-framework-apps-using-github-actions/)
