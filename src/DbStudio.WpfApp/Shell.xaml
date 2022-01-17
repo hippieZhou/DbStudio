@@ -22,6 +22,14 @@
     <hc:Window.DataContext>
         <vm:ShellViewModel />
     </hc:Window.DataContext>
+    <!--<hc:Window.NonClientAreaContent>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button
+                x:Name="ButtonConfig"
+                hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                Style="{StaticResource ButtonIcon}" />
+        </StackPanel>
+    </hc:Window.NonClientAreaContent>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -115,5 +123,15 @@
                 </TabItem>
             </TabControl>
         </Grid>
+
+        <!--<Popup
+            x:Name="PopupConfig"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            AllowsTransparency="True"
+            HorizontalOffset="120"
+            PlacementTarget="{Binding ElementName=ButtonConfig}"
+            StaysOpen="False"
+            VerticalOffset="6" />-->
     </Grid>
 </hc:Window>
