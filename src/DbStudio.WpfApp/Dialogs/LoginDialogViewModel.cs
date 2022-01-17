@@ -40,8 +40,8 @@ namespace DbStudio.WpfApp.Dialogs
         private async Task LoadAsync(CancellationToken cancellationToken)
         {
             IsEnabled = false;
-
             HistoryConnections.Clear();
+
             var response = await Mediator.SendAsync(new DbConnectionQueryFromUserHistoryCommand(), cancellationToken);
             if (response.Succeeded)
             {
@@ -56,6 +56,7 @@ namespace DbStudio.WpfApp.Dialogs
                 }
             }
 
+            OnPropertyChanged(nameof(HistoryConnections));
             IsEnabled = true;
         }
 

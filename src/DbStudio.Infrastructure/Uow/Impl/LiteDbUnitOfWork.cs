@@ -9,14 +9,14 @@ namespace DbStudio.Infrastructure.Uow.Impl
     public class LiteDbUnitOfWork : ILiteDbUnitOfWork
     {
         private bool _disposed;
-        private readonly LiteDatabase _dbContext;
+        private readonly ILiteDatabase _dbContext;
         private readonly RetryOptions _options;
 
         public LiteDbUnitOfWork(
-            LiteDatabase dbContext,
+            string connectionString,
             RetryOptions options = default)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = new LiteDatabase(connectionString);
             _options = options;
         }
 

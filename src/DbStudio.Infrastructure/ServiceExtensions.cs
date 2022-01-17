@@ -14,7 +14,7 @@ namespace DbStudio.Infrastructure
         {
             var liteDbFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "default.db");
-            services.AddSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>(sp => new UnitOfWorkFactory(liteDbFile));
+            services.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>(sp => new UnitOfWorkFactory(liteDbFile));
             return services;
         }
     }

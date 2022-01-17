@@ -15,6 +15,7 @@
     Height="680"
     d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
     hc:Dialog.Token="{x:Static dlg:MessageToken.MainWindow}"
+    Icon="/Assets/database-administrator-48.png"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     WindowStartupLocation="CenterScreen"
@@ -22,6 +23,14 @@
     <hc:Window.DataContext>
         <vm:ShellViewModel />
     </hc:Window.DataContext>
+    <!--<hc:Window.NonClientAreaContent>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button
+                x:Name="ButtonConfig"
+                hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                Style="{StaticResource ButtonIcon}" />
+        </StackPanel>
+    </hc:Window.NonClientAreaContent>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -115,5 +124,15 @@
                 </TabItem>
             </TabControl>
         </Grid>
+
+        <!--<Popup
+            x:Name="PopupConfig"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            AllowsTransparency="True"
+            HorizontalOffset="120"
+            PlacementTarget="{Binding ElementName=ButtonConfig}"
+            StaysOpen="False"
+            VerticalOffset="6" />-->
     </Grid>
 </hc:Window>
