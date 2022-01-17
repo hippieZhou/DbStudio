@@ -15,6 +15,7 @@
     Height="680"
     d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
     hc:Dialog.Token="{x:Static dlg:MessageToken.MainWindow}"
+    Icon="/Assets/database-administrator-48.png"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     WindowStartupLocation="CenterScreen"
