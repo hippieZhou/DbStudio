@@ -50,6 +50,7 @@ jobs:
 
     strategy:
       matrix:
+        targetplatform: [x86, x64]
         configuration: [Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
@@ -78,8 +79,8 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     # Add NuGet To PATH
-    - name: Setup NuGet.exe
-      uses: NuGet/setup-nuget@v1.0.2
+    # - name: Setup NuGet.exe
+    #   uses: NuGet/setup-nuget@v1.0.2
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
