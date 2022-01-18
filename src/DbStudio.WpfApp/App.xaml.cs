@@ -1,4 +1,5 @@
-﻿using DbStudio.Application;
+﻿using System;
+using DbStudio.Application;
 using DbStudio.Infrastructure;
 using DbStudio.WpfApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,7 @@ namespace DbStudio.WpfApp
             base.OnStartup(e);
         }
 
-        private ServiceProvider ConfigureServices(IServiceCollection services)
+        private IServiceProvider ConfigureServices(IServiceCollection services)
         {
             return services
                 .AddMvvmLayer()
