@@ -21,6 +21,6 @@ namespace DbStudio.Infrastructure.Shared.Helpers
             return $"{number:n1}{Suffixes[counter]}";
         }
 
-        public static string FormatSize(string file) => File.Exists(file) ? FileSizeFormatter.FormatSize(new FileInfo(file).Length) : default;
+        public static string FormatSize(string file) => File.Exists(file) ? FormatSize(new FileInfo(file).Length) : default;
     }
 }
