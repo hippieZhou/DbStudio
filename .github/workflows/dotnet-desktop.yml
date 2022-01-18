@@ -91,7 +91,7 @@ jobs:
 
     # Publish Release 
     - name: Publish Release 
-      run: dotnet publish ${{ env.Wap_Project_Path }} -c Release --self-contained -r ${{ env.RuntimeIdentifier }} /p:PublishSingleFile=true --no-build
+      run: dotnet publish ${{ env.Wap_Project_Path }} -c Release --self-contained -r ${{ env.RuntimeIdentifier }} # -p:PublishSingleFile=true --no-build
 
 
     - uses: actions/create-release@v1
