@@ -52,7 +52,7 @@ jobs:
       matrix:
         targetplatform: [x86, x64]
         configuration: [Debug, Release]
-        ChannelName: [Release]
+        ChannelName: [Debug, Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -112,7 +112,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+        tag_name: ${{ github.ref}}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
         release_name: ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
         draft: false
         prerelease: false
