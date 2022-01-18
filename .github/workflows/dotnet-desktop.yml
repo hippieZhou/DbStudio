@@ -52,7 +52,7 @@ jobs:
       matrix:
         targetplatform: [x86, x64]
         configuration: [Debug, Release]
-        ChannelName: [Debug, Release]
+        ChannelName: [Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -99,6 +99,16 @@ jobs:
         Appx_Package_Build_Mode: StoreUpload
         Configuration: ${{ matrix.configuration }}
 
+    - name: Generate changelog
+      id: changelog
+      uses: jaywcjlove/changelog-generator@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        filter: ''
+      env:
+        commitMode: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     # Upload the app package: https://github.com/marketplace/actions/upload-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
@@ -107,13 +117,16 @@ jobs:
         path: ${{ env.Wap_Project_Directory }}\DbStudio.WpfApp\bin\${{ matrix.configuration }}\net5.0-windows
 
     # Create release
-    - uses: actions/create-release@v1
+    - uses: actions/create-release@latest
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref}}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
         release_name: ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+        body: |
+          ${{ steps.changelog.outputs.compareurl }}
+          ${{ steps.changelog.outputs.changelog }}
         draft: false
         prerelease: false
         
