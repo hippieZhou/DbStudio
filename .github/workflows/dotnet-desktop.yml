@@ -98,12 +98,12 @@ jobs:
         Appx_Package_Build_Mode: StoreUpload
         Configuration: ${{ matrix.configuration }}
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
+    # Upload the app package: https://github.com/marketplace/actions/upload-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+        name: app Package
+        path: ${{ env.Wap_Project_Directory }}\DbStudio.WpfApp\bin\${{ matrix.configuration }}\net5.0-windows
 
     # - uses: actions/create-release@v1
     #   id: create_release
