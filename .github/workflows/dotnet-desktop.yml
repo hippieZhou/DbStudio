@@ -91,7 +91,7 @@ jobs:
 
     # Publish Release 
     - name: Publish Release 
-      run: dotnet publish ${{ env.Wap_Project_Path }} -c Release --self-contained -r ${{ env:RuntimeIdentifier }} -p:PublishSingleFile=true --no-build
+      run: dotnet publish ${{ env.Wap_Project_Path }} -c Release --self-contained -r ${{ env.RuntimeIdentifier }} -p:PublishSingleFile=true --no-build
 
 
     - uses: actions/create-release@v1
@@ -99,8 +99,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
+        tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+        release_name: ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+        draft: false
+        prerelease: false
+        
 
     - uses: csexton/release-asset-action@v2
       with:
