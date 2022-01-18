@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using MessageBox = HandyControl.Controls.MessageBox;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using DbStudio.WpfApp.Services;
 
 namespace DbStudio.WpfApp.Extensions
 {
@@ -19,7 +20,9 @@ namespace DbStudio.WpfApp.Extensions
 
             var handler = new Action<string, object>((name, ex) =>
             {
-                if (ex is Exception e) MessageBox.Success(e.Message);
+                if (ex is not Exception e) return;
+                var dlgService = Ioc.Default.GetRequiredService<IDialogService>();
+                dlgService.Error(e.Message);
             });
 
             application.DispatcherUnhandledException += (sender, e) =>

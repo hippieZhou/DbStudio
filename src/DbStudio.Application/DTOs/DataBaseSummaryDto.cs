@@ -8,5 +8,6 @@ namespace DbStudio.Application.DTOs
         public string FileName { get; set; }
         public string FileSize { get; set; }
         public IEnumerable<string> Tables { get; set; }
+        public IEnumerable<string> Jobs { get; set; }
     }
 }

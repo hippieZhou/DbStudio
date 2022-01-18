@@ -8,5 +8,6 @@
         public string FileName { get; set; }
         public string FileSize { get; set; }
         public int TableCount { get; set; }
+        public int JobCount { get; set; }
     }
 }

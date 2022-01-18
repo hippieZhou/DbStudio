@@ -29,17 +29,13 @@
                 <TextBox hc:TitleElement.Title="数据库文件【数据库服务器的绝对物理路径】" Text="{Binding Summary.FileName}" />
                 <TextBox hc:TitleElement.Title="数据库大小【只对本机数据库实例有效】" Text="{Binding Summary.FileSize}" />
                 <TextBox hc:TitleElement.Title="表数量" Text="{Binding Summary.TableCount}" />
+                <TextBox hc:TitleElement.Title="数据库作业数量" Text="{Binding Summary.JobCount}" />
                 <hc:Divider Width="120" Content="常规操作" />
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <!--<Button
-                        Command="{Binding RebuildIndexCommand}"
+                    <Button
+                        Command="{Binding RebuildDataBaseIndexCommand}"
                         Content="重建索引"
                         Style="{StaticResource MessageBoxPrimaryButtonStyle}" />
-                    <Button
-                        Command="{Binding ExportTableStructureCommand}"
-                        Content="导出表结构"
-                        Style="{StaticResource MessageBoxPrimaryButtonStyle}"
-                        Visibility="Collapsed" />-->
                 </StackPanel>
             </StackPanel>
         </Grid>

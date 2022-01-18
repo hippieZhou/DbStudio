@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DbStudio.WpfApp.Models;
 using DbStudio.Application.Features.DataBase.Queries;
-
+using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.DataBase.Commands;
 
 namespace DbStudio.WpfApp.ViewModels
 {
@@ -45,8 +47,30 @@ namespace DbStudio.WpfApp.ViewModels
                 Summary.FileSize = response.Data.FileSize;
                 Summary.FileName = response.Data.FileName;
                 Summary.TableCount = response.Data.Tables.Count();
+                Summary.JobCount = response.Data.Jobs.Count();
 
                 OnPropertyChanged(nameof(Summary));
+            }
+        }
+
+        private IAsyncRelayCommand _rebuildDataBaseIndexCommand;
+
+        public IAsyncRelayCommand RebuildDataBaseIndexCommand =>
+            _rebuildDataBaseIndexCommand ??= new AsyncRelayCommand(RebuildDataBaseIndexAsync);
+
+        private async Task RebuildDataBaseIndexAsync(CancellationToken cancellationToken)
+        {
+            var request = new DataBaseIndexRebuildCommand
+            {
+                DataSource = CurrentConn.DataSource,
+                UserId = CurrentConn.UserId,
+                Password = CurrentConn.Password,
+                InitialCatalog = CurrentConn.InitialCatalog
+            };
+            var response = await Mediator.SendAsync(request, cancellationToken);
+            if (response.Succeeded)
+            {
+                Message.Success($"【{request.InitialCatalog}】索引重建成功");
             }
         }
     }

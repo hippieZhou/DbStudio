@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using DbStudio.Application.DTOs;
@@ -59,13 +58,17 @@ namespace DbStudio.Application.Features.DataBase.Queries
                 new DbCommandArgs { Sql = "SELECT name FROM sysobjects WHERE xtype = 'U';" },
                 cancellationToken);
 
+            var jobs = await uow.QueryAsync<string>(new DbCommandArgs
+                { Sql = "SELECT name FROM msdb.[dbo].[sysjobs]" });
+
 
             var result = new DataBaseSummaryDto
             {
                 Version = version,
                 FileName = fileName,
-                FileSize = File.Exists(fileName) ? FileSizeFormatter.FormatSize(new FileInfo(fileName).Length) : default,
-                Tables = tables
+                FileSize = FileSizeFormatter.FormatSize(fileName),
+                Tables = tables,
+                Jobs = jobs
             };
 
             return new Response<DataBaseSummaryDto>(result);

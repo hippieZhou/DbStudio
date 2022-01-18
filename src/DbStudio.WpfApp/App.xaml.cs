@@ -33,14 +33,18 @@ namespace DbStudio.WpfApp
         protected override void OnStartup(StartupEventArgs e)
         {
             Log.Information("Starting WPF host.");
-            Ioc.Default.ConfigureServices(
-                new ServiceCollection()
-                    .AddMvvmLayer()
-                    .AddApplicationLayer(default)
-                    .AddInfrastructureLayer(default)
-                    .AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true))
-                    .BuildServiceProvider());
+            Ioc.Default.ConfigureServices(ConfigureServices(new ServiceCollection()));
             base.OnStartup(e);
+        }
+
+        private ServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            return services
+                .AddMvvmLayer()
+                .AddApplicationLayer(default)
+                .AddInfrastructureLayer(default)
+                .AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true))
+                .BuildServiceProvider();
         }
 
         protected override void OnExit(ExitEventArgs e)

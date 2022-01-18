@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace DbStudio.Infrastructure.Shared.Helpers
 {
@@ -19,5 +20,7 @@ namespace DbStudio.Infrastructure.Shared.Helpers
 
             return $"{number:n1}{Suffixes[counter]}";
         }
+
+        public static string FormatSize(string file) => File.Exists(file) ? FileSizeFormatter.FormatSize(new FileInfo(file).Length) : default;
     }
 }
