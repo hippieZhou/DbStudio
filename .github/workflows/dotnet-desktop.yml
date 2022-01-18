@@ -101,13 +101,13 @@ jobs:
 
     - name: Generate changelog
       id: changelog
-      uses: jaywcjlove/changelog-generator@main
+      uses: BobAnkh/auto-generate-changelog@master
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        filter: ''
-      env:
-        commitMode: true
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO_NAME: 'hippiezhou/dbstudio'
+        ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        PATH: 'CHANGELOG.md'
+        COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes'
+        TYPE: 'feat:Feature,fix:Bug Fixes,docs:Documentation,refactor:Refactor,perf:Performance Improvements'
 
     # Upload the app package: https://github.com/marketplace/actions/upload-artifact
     - name: Upload build artifacts
