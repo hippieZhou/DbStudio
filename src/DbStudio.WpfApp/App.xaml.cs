@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 using System.Windows;
+using DbStudio.Infrastructure.Shared.Helpers;
 
 namespace DbStudio.WpfApp
 {
@@ -25,6 +26,11 @@ namespace DbStudio.WpfApp
 #endif
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
+                .Enrich.WithProperty("MachineName", MachineHelper.GetMachineName())
+                .Enrich.WithProperty("MacAddress", MachineHelper.GetMacAddress())
+                .Enrich.WithProperty("OSVersion", MachineHelper.GetOsVersion())
+                .Enrich.WithProperty("IPAddress", MachineHelper.GetIpAddress())
+                .Enrich.WithProperty("UserName", MachineHelper.GetUserName())
                 .WriteTo.Async(c => c.ConfigureSerilog())
                 .CreateLogger();
 

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="YAXLib" Version="3.0.1" />
   </ItemGroup>
 

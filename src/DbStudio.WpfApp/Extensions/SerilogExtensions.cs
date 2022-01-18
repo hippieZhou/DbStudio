@@ -11,7 +11,8 @@ namespace DbStudio.WpfApp.Extensions
         private static readonly string OutputTemplate =
             "{NewLine}Date：{Timestamp:yyyy-MM-dd HH:mm:ss.fff}" +
             "{NewLine}LogLevel：{Level}" +
-            "{NewLine}Message：{Message}" +
+            "{NewLine}Property：{Properties:j}" +
+            "{NewLine}Message：{Message:lj}" +
             "{NewLine}{Exception}" +
             new string('-', 50) +
             "{NewLine}";
