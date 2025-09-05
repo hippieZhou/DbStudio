@@ -50,7 +50,7 @@
 1. **克隆项目**
 
    ```bash
-   git clone https://github.com/your-username/DbStudio.git
+   git clone https://github.com/hippieZhou/DbStudio.git
    cd DbStudio
    ```
 
@@ -147,7 +147,7 @@ dotnet publish -c Release --self-contained -r win-x64 DbStudio.WpfApp
 ## 📞 联系方式
 
 - 作者: hippieZhou
-- 项目链接: [https://github.com/hippiezhou/DbStudio](https://github.com/hippiezhou/DbStudio)
+- 项目链接: [https://github.com/hippiezhou/DbStudio](https://github.com/hippieZhou/DbStudio)
 
 ---
 
