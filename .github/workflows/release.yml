@@ -1,0 +1,128 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g., v1.0.0)"
+        required: true
+        type: string
+      prerelease:
+        description: "Mark as pre-release"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        platform: [x64, x86]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "5.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore DbStudio.sln
+
+      - name: Build application
+        run: dotnet build DbStudio.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test DbStudio.sln --configuration Release --no-build --verbosity normal
+
+      - name: Publish application
+        run: |
+          dotnet publish src/DbStudio.WpfApp/DbStudio.WpfApp.csproj `
+            --configuration Release `
+            --runtime win-${{ matrix.platform }} `
+            --self-contained true `
+            --output ./publish/win-${{ matrix.platform }} `
+            -p:PublishSingleFile=true `
+            -p:PublishTrimmed=true
+
+      - name: Create release archive
+        run: |
+          $archiveName = "DbStudio-${{ inputs.version }}-win-${{ matrix.platform }}.zip"
+          Compress-Archive -Path "./publish/win-${{ matrix.platform }}/*" -DestinationPath $archiveName
+          echo "ARCHIVE_NAME=$archiveName" >> $env:GITHUB_ENV
+
+      - name: Upload release asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: DbStudio-${{ inputs.version }}-win-${{ matrix.platform }}
+          path: DbStudio-${{ inputs.version }}-win-${{ matrix.platform }}.zip
+
+  create-release:
+    needs: build-and-release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.version }}
+          release_name: DbStudio ${{ inputs.version }}
+          body: |
+            ## DbStudio ${{ inputs.version }}
+
+            ### 📦 下载
+
+            - **Windows x64**: DbStudio-${{ inputs.version }}-win-x64.zip
+            - **Windows x86**: DbStudio-${{ inputs.version }}-win-x86.zip
+
+            ### 📋 更新内容
+
+            请查看 [提交历史](https://github.com/${{ github.repository }}/commits/${{ inputs.version }}) 了解详细更改。
+
+            ### 🚀 安装说明
+
+            1. 下载适合您系统架构的压缩包
+            2. 解压到任意目录
+            3. 运行 `DbStudio.WpfApp.exe`
+
+            ### 📋 系统要求
+
+            - Windows 10 或更高版本
+            - .NET 5.0 Runtime（如果使用 self-contained 版本则不需要）
+          draft: false
+          prerelease: ${{ inputs.prerelease }}
+
+      - name: Upload x64 Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/DbStudio-${{ inputs.version }}-win-x64/DbStudio-${{ inputs.version }}-win-x64.zip
+          asset_name: DbStudio-${{ inputs.version }}-win-x64.zip
+          asset_content_type: application/zip
+
+      - name: Upload x86 Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/DbStudio-${{ inputs.version }}-win-x86/DbStudio-${{ inputs.version }}-win-x86.zip
+          asset_name: DbStudio-${{ inputs.version }}-win-x86.zip
+          asset_content_type: application/zip

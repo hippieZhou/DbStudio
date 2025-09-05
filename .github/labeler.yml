@@ -1,0 +1,46 @@
+# Auto-labeling configuration for issues and pull requests
+
+# Bug reports
+bug:
+  - '\b(bug|error|issue|problem|crash|fail|exception)\b'
+  - '\b(not work|does not work|broken)\b'
+
+# Feature requests
+enhancement:
+  - '\b(feature|enhancement|improvement|add|new)\b'
+  - '\b(request|suggest|proposal)\b'
+
+# Documentation
+documentation:
+  - '\b(doc|documentation|readme|guide|tutorial)\b'
+  - '\b(help|instruction|example)\b'
+
+# Questions
+question:
+  - '\b(question|how to|help|support)\b'
+  - '\?'
+
+# Performance related
+performance:
+  - '\b(performance|slow|speed|optimize|lag)\b'
+  - '\b(memory|cpu|resource)\b'
+
+# UI/UX related
+ui/ux:
+  - '\b(ui|ux|interface|design|layout)\b'
+  - '\b(button|window|dialog|theme)\b'
+
+# Database related
+database:
+  - '\b(database|db|sql|connection|backup|restore)\b'
+  - '\b(snapshot|index|query)\b'
+
+# Configuration
+configuration:
+  - '\b(config|configuration|setting|setup)\b'
+  - '\b(install|deployment)\b'
+
+# Good first issue (for newcomers)
+good first issue:
+  - '\b(good first issue|beginner|easy|starter)\b'
+  - '\b(newcomer|first contribution)\b'
