@@ -147,7 +147,7 @@ dotnet publish -c Release --self-contained -r win-x64 DbStudio.WpfApp
 ## 📞 联系方式
 
 - 作者: hippieZhou
-- 项目链接: [https://github.com/your-username/DbStudio](https://github.com/your-username/DbStudio)
+- 项目链接: [https://github.com/hippiezhou/DbStudio](https://github.com/hippiezhou/DbStudio)
 
 ---
 
