@@ -1,10 +1,10 @@
 # DbStudio
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![.NET](https://img.shields.io/badge/.NET-5.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/5.0)
+[![.NET](https://img.shields.io/badge/.NET-9.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/9.0)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
-**DbStudio** 是一款基于 .NET 5 和 WPF 技术栈开发的现代化数据库管理工具。采用清洁架构（Clean Architecture）设计模式，提供直观的用户界面和强大的数据库管理功能。
+**DbStudio** 是一款基于 .NET 9 和 WPF 技术栈开发的现代化数据库管理工具。采用清洁架构（Clean Architecture）设计模式，提供直观的用户界面和强大的数据库管理功能。
 
 ## ✨ 核心特性
 
@@ -29,7 +29,7 @@
 
 ### 核心技术栈
 
-- **框架**: .NET 5.0 / WPF
+- **框架**: .NET 9.0 / WPF
 - **架构模式**: Clean Architecture + CQRS + MediatR
 - **UI 框架**: HandyControl + CommunityToolkit.Mvvm
 - **数据访问**: Dapper + LiteDB
@@ -43,7 +43,7 @@
 ### 系统要求
 
 - Windows 10 或更高版本
-- .NET 5.0 Runtime 或更高版本
+- .NET 9.0 Runtime 或更高版本
 
 ### 安装与运行
 
@@ -112,7 +112,7 @@ dotnet publish -c Release --self-contained -r win-x64 DbStudio.WpfApp
 ### 开发环境设置
 
 1. 安装 Visual Studio 2019/2022 或 Visual Studio Code
-2. 安装 .NET 5.0 SDK
+2. 安装 .NET 9.0 SDK
 3. 推荐安装的扩展：
    - C# for Visual Studio Code
    - .NET Core Tools
@@ -151,4 +151,4 @@ dotnet publish -c Release --self-contained -r win-x64 DbStudio.WpfApp
 
 ---
 
-⭐ 如果这个项目对您有帮助，请给我们一个 Star！
+⭐ 如果这个项目对您有帮助，请给我一个 Star！

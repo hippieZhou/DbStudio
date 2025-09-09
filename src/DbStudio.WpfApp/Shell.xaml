@@ -80,7 +80,6 @@
                     Margin="4"
                     Command="{Binding SearchCatalogCommand}"
                     CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}"
-                    ShowClearButton="True"
                     Style="{StaticResource SearchBarExtend}" />
                 <Button
                     Grid.Row="0"

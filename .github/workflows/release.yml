@@ -28,7 +28,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "5.0.x"
+          dotnet-version: "9.0.x"
 
       - name: Restore dependencies
         run: dotnet restore DbStudio.sln
@@ -103,7 +103,7 @@ jobs:
             ### 📋 系统要求
 
             - Windows 10 或更高版本
-            - .NET 5.0 Runtime（如果使用 self-contained 版本则不需要）
+            - .NET 9.0 Runtime（如果使用 self-contained 版本则不需要）
           draft: false
           prerelease: ${{ inputs.prerelease }}
 
