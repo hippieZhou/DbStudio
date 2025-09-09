@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DbStudio.Infrastructure.Uow
 {
-    public interface ILiteDbUnitOfWork: IDisposable
+    public interface ILiteDbUnitOfWork : IDisposable
     {
         IReadOnlyList<T> FindAll<T>(string tableName);
         T FindOne<T>(string tableName, Expression<Func<T, bool>> predicate);

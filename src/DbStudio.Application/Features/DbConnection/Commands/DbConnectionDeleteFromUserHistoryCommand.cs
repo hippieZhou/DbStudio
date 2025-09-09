@@ -1,15 +1,15 @@
-﻿using System;
-using DbStudio.Application.Wrappers;
+﻿using DbStudio.Application.Wrappers;
+using DbStudio.Domain.Entities;
+using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DbStudio.Infrastructure.Uow;
-using DbStudio.Domain.Entities;
 
 namespace DbStudio.Application.Features.DbConnection.Commands
 {
-    public class DbConnectionDeleteFromUserHistoryCommand: IRequest<Response<int>>
+    public class DbConnectionDeleteFromUserHistoryCommand : IRequest<Response<int>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }
@@ -39,7 +39,7 @@ namespace DbStudio.Application.Features.DbConnection.Commands
 
         public Task<Response<int>> Handle(DbConnectionDeleteFromUserHistoryCommand request,
             CancellationToken cancellationToken)
-        { 
+        {
             var uow = _unitOfWorkFactory.CreateLite();
             var result = uow.DeleteMany<UserDbConnection>(
                 nameof(UserDbConnection),

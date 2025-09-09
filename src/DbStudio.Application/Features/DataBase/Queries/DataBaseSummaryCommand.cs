@@ -1,16 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.DTOs;
+﻿using DbStudio.Application.DTOs;
 using DbStudio.Application.Wrappers;
 using DbStudio.Infrastructure.Shared.Helpers;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.DataBase.Queries
 {
-    public class DataBaseSummaryCommand: IRequest<Response<DataBaseSummaryDto>>
+    public class DataBaseSummaryCommand : IRequest<Response<DataBaseSummaryDto>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }
@@ -51,7 +51,7 @@ namespace DbStudio.Application.Features.DataBase.Queries
 
             var fileName = await uow.QueryFirstOrDefaultAsync<string>(
                 new DbCommandArgs
-                    { Sql = $"SELECT filename FROM master.dbo.sysdatabases WHERE name = '{request.InitialCatalog}';" },
+                { Sql = $"SELECT filename FROM master.dbo.sysdatabases WHERE name = '{request.InitialCatalog}';" },
                 cancellationToken);
 
             var tables = await uow.QueryAsync<string>(
@@ -59,7 +59,7 @@ namespace DbStudio.Application.Features.DataBase.Queries
                 cancellationToken);
 
             var jobs = await uow.QueryAsync<string>(new DbCommandArgs
-                { Sql = "SELECT name FROM msdb.[dbo].[sysjobs]" });
+            { Sql = "SELECT name FROM msdb.[dbo].[sysjobs]" });
 
 
             var result = new DataBaseSummaryDto

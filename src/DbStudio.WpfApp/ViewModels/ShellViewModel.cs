@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
-using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.DbCatalog.Queries;
 using DbStudio.WpfApp.Dialogs;
 using DbStudio.WpfApp.Models;
 using HandyControl.Controls;
 using HandyControl.Tools.Extension;
-using DbStudio.Application.Features.DbCatalog.Queries;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.WpfApp.ViewModels
 {

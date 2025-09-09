@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DbStudio.WpfApp.Models;
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using DbStudio.WpfApp.Models;
 
 namespace DbStudio.WpfApp.Converters
 {

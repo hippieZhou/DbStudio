@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using DbStudio.Infrastructure.Uow;
+﻿using DbStudio.Infrastructure.Uow;
 using DbStudio.Infrastructure.Uow.Impl;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 
 namespace DbStudio.Infrastructure
 {

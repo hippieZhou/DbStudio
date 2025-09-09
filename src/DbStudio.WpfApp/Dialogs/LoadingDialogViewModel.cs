@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using DbStudio.WpfApp.ViewModels;
 using HandyControl.Tools.Extension;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.WpfApp.Dialogs
 {

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.Interfaces;
+﻿using DbStudio.Application.Interfaces;
 using DbStudio.Application.Wrappers;
 using DbStudio.WpfApp.Services;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.WpfApp
 {

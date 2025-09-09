@@ -1,9 +1,8 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using LiteDB;
 
 namespace DbStudio.Infrastructure.Uow.Impl
 {
@@ -57,7 +56,7 @@ namespace DbStudio.Infrastructure.Uow.Impl
         }
 
         public ILiteDbUnitOfWork CreateLite(RetryOptions options = default)
-        { 
+        {
             return new LiteDbUnitOfWork(_liteDb, options);
         }
     }

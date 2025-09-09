@@ -1,8 +1,8 @@
-﻿using System.Reflection;
-using DbStudio.Application.Mappings;
+﻿using DbStudio.Application.Mappings;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DbStudio.Application.Extensions
 {

@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.Wrappers;
+﻿using DbStudio.Application.Wrappers;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Interfaces
 {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DbStudio.WpfApp.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using DbStudio.WpfApp.Models;
 
 namespace DbStudio.WpfApp.Converters
 {

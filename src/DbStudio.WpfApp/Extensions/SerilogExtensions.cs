@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-using Serilog;
+﻿using Serilog;
 using Serilog.Configuration;
 using Serilog.Events;
+using System;
+using System.IO;
 
 namespace DbStudio.WpfApp.Extensions
 {

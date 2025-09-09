@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.DTOs;
+﻿using DbStudio.Application.DTOs;
 using DbStudio.Application.Wrappers;
 using DbStudio.Domain.Entities;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MapsterMapper;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.Snapshot.Queries
 {
-    public class SnapshotQueryCommand: IRequest<Response<IReadOnlyList<DbSnapshotDto>>>
+    public class SnapshotQueryCommand : IRequest<Response<IReadOnlyList<DbSnapshotDto>>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }

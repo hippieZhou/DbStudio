@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Dapper;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
-using Dapper;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DbStudio.Infrastructure.Uow.Impl
 {

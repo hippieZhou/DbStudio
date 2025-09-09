@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using DbStudio.WpfApp.Services;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using DbStudio.WpfApp.Services;
 
 namespace DbStudio.WpfApp.Extensions
 {

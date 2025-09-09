@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DbStudio.Application.Interfaces;
@@ -11,6 +9,8 @@ using DbStudio.WpfApp.Services;
 using HandyControl.Controls;
 using HandyControl.Tools.Extension;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.WpfApp.ViewModels
 {

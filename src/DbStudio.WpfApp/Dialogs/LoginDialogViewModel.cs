@@ -1,13 +1,13 @@
-﻿using DbStudio.WpfApp.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.DbConnection.Commands;
+using DbStudio.Application.Features.DbConnection.Queries;
+using DbStudio.WpfApp.Models;
+using DbStudio.WpfApp.ViewModels;
 using HandyControl.Tools.Extension;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
-using DbStudio.Application.Features.DbConnection.Commands;
-using DbStudio.Application.Features.DbConnection.Queries;
-using DbStudio.WpfApp.Models;
 
 namespace DbStudio.WpfApp.Dialogs
 {
@@ -18,7 +18,7 @@ namespace DbStudio.WpfApp.Dialogs
 
         public ObservableCollection<DbConnection> HistoryConnections { get; } = new();
 
-        private DbConnection _newConnection ;
+        private DbConnection _newConnection;
 
         public DbConnection NewConnection
         {
@@ -114,7 +114,7 @@ namespace DbStudio.WpfApp.Dialogs
             CloseAction?.Invoke();
         }
 
-        
+
 
         private IAsyncRelayCommand<DbConnection> _deleteHistoryCommand;
         public IAsyncRelayCommand<DbConnection> DeleteHistoryCommand => _deleteHistoryCommand ??= new AsyncRelayCommand<DbConnection>(DeleteHistoryAsync);
@@ -128,10 +128,10 @@ namespace DbStudio.WpfApp.Dialogs
                 Password = conn.Password
             }, cancellationToken);
 
-           if (response.Succeeded)
-           {
-               LoadedCommand?.ExecuteAsync(cancellationToken);
-           }
+            if (response.Succeeded)
+            {
+                LoadedCommand?.ExecuteAsync(cancellationToken);
+            }
         }
 
         private IRelayCommand _cancelCommand;

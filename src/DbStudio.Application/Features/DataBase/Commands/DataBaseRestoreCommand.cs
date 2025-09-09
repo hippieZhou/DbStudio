@@ -1,18 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.DTOs;
+﻿using DbStudio.Application.DTOs;
 using DbStudio.Application.Wrappers;
 using DbStudio.Domain.Entities;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.DataBase.Commands
 {
-    public class DataBaseRestoreCommand: IRequest<Response<DbBackupDto>>
+    public class DataBaseRestoreCommand : IRequest<Response<DbBackupDto>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }

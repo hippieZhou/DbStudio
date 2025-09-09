@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using DbStudio.Application.Features.Snapshot.Commands;
 using DbStudio.Application.Features.Snapshot.Queries;
 using DbStudio.WpfApp.Models;
+using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.WpfApp.ViewModels
 {

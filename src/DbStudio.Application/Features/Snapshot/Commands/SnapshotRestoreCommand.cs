@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.Wrappers;
+﻿using DbStudio.Application.Wrappers;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.Snapshot.Commands
 {
-    public class SnapshotRestoreCommand: IRequest<Response<int>>
+    public class SnapshotRestoreCommand : IRequest<Response<int>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }

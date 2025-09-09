@@ -1,16 +1,16 @@
-﻿using System;
+﻿using DbStudio.Application.Wrappers;
+using DbStudio.Infrastructure.Uow;
+using FluentValidation;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DbStudio.Application.Wrappers;
-using DbStudio.Infrastructure.Uow;
-using FluentValidation;
-using MediatR;
 
 namespace DbStudio.Application.Features.DbCatalog.Queries
 {
-    public class DbCatalogsQueryCommand: IRequest<Response<IReadOnlyList<string>>>
+    public class DbCatalogsQueryCommand : IRequest<Response<IReadOnlyList<string>>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }

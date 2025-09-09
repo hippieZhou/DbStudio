@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.Wrappers;
+﻿using DbStudio.Application.Wrappers;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.DataBase.Commands
 {

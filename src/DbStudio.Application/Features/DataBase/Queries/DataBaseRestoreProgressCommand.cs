@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using DbStudio.Application.Wrappers;
+﻿using DbStudio.Application.Wrappers;
 using DbStudio.Domain.Entities;
 using DbStudio.Infrastructure.Uow;
 using FluentValidation;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DbStudio.Application.Features.DataBase.Queries
 {
-    public class DataBaseRestoreProgressCommand: IRequest<Response<int?>>
+    public class DataBaseRestoreProgressCommand : IRequest<Response<int?>>
     {
         public string DataSource { get; set; }
         public string UserId { get; set; }

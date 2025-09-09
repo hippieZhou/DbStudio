@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using DbStudio.Application;
 using DbStudio.Infrastructure;
+using DbStudio.Infrastructure.Shared.Helpers;
 using DbStudio.WpfApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using Serilog;
 using Serilog.Events;
+using System;
 using System.Windows;
-using DbStudio.Infrastructure.Shared.Helpers;
 
 namespace DbStudio.WpfApp
 {

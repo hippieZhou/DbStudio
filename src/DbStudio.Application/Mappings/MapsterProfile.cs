@@ -4,7 +4,7 @@ using Mapster;
 
 namespace DbStudio.Application.Mappings
 {
-    public class MapsterProfile: TypeAdapterConfig
+    public class MapsterProfile : TypeAdapterConfig
     {
         public MapsterProfile()
         {

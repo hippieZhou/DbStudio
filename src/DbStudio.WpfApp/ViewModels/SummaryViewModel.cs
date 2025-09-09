@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using CommunityToolkit.Mvvm.Input;
+using DbStudio.Application.Features.DataBase.Commands;
+using DbStudio.Application.Features.DataBase.Queries;
+using DbStudio.WpfApp.Models;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DbStudio.WpfApp.Models;
-using DbStudio.Application.Features.DataBase.Queries;
-using CommunityToolkit.Mvvm.Input;
-using DbStudio.Application.Features.DataBase.Commands;
 
 namespace DbStudio.WpfApp.ViewModels
 {
